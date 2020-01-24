@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <link rel="stylesheet" href="/css/style.css">
+    </head>
+    <body>
+        <div class="main-content">
+            {{>header}}
+
+            <div class="container">
+                <div>
+                    <form id="edit_form">
+                        <p>Title</p>
+                        <input type="text" id="edit_title_input" name="title">
+                        <p>Date</p>
+                        <input type="text" id="edit_date_input" name="date">
+                        <p>Location</p>
+                        <input type="text" id="edit_location_input" name="location" >
+                        <p>Description</p>
+                        <textarea id="edit_description_input" name="description" cols="30" rows="10"></textarea><br>
+                        <input type="submit">
+                        <button id="edit_cancel_button">Cancel</button>
+                    </form>
+
+                </div>
+            </div>
+
+            {{>footer}}
+        </div>
+
+        <script src="/scripts/edit-bundle.js"></script>
+    </body>
+</html>

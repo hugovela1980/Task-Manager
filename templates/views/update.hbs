@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <link rel="stylesheet" href="/css/style.css">
+    </head>
+    <body>
+        <div class="main-content">
+            {{>header}}
+
+            <h3>Update your Profile</h3>
+
+            <div id="user-profile">
+                <form id="update">
+                    <p>Name</p>
+                    <input type="text" id="update-name" name="name">
+                    <p>Age</p>
+                    <input type="text" id="update-age" name="age">
+                    <p>Email</p>
+                    <input type="text" id="update-email" name="email"><br>
+                    <input type="submit">
+                    <button type="button" id="cancel">Cancel</button>
+                </form>
+            </div>
+
+        </div>
+
+        {{>footer}}
+        
+        <script src="/scripts/update-bundle.js"></script>
+    </body>
+</html>

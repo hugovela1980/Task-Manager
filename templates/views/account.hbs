@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <link rel="stylesheet" href="/css/style.css">
+    </head>
+    <body>
+        <div class="main-content">
+            <h1>Create an Account</h1>
+            <form id="create-account">
+                <p>Name</p>
+                <input type="text" placeholder="Name" name="name">
+                <p>Age</p>
+                <input type="text" placeholder="Age" name="age">
+                <p>Email</p>
+                <input type="text" placeholder="Email" name="email">
+                <p>Password</p>
+                <input type="text" placeholder="Password" name="password"><br>
+                <input type="submit" value="Create Account">
+                <a href="/">
+                    <button type="button">Cancel</button>
+                </a>
+            </form>
+        </div>
+
+        {{>footer}}
+        
+        <script src="/scripts/account-bundle.js"></script>
+    </body>
+</html>

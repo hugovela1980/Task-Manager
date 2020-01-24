@@ -1,0 +1,93 @@
+body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+.main-content {
+    flex-grow: 1;
+}
+
+header {
+    margin-bottom: 25px;
+    padding-bottom: 25px;
+    border-bottom: solid;
+    border-color: black;
+}
+
+footer {
+    margin-top: 50px;
+    border-top: solid;
+    border-color: black;
+}
+
+button {
+    max-width: 150px;
+}
+
+.list-item {
+    border: solid;
+    margin-top: 25px;
+    margin-bottom: 25px;
+    display: block;
+    padding: 15px;
+}
+
+.list-item:hover {
+    background: antiquewhite;
+    cursor: pointer;
+}
+
+.add-collaborator-list-item {
+    width: 200px;
+    border: solid;
+    padding: 10px;
+    margin: 10px 0;
+}
+
+.add-collaborator-div {
+    background-color: rgb(255, 233, 144);
+    font-size: 24px;
+    font-weight: bolder;
+}
+
+.collaborator-name {
+    font-size: 18px;
+    font-weight: bolder;
+    padding: 10px;
+}
+
+.collaborator-remove {
+    margin-right: 10px;
+    padding: 10px;
+}
+
+.container {
+    margin-top: 40px;
+}
+
+.myGroups {
+    display: inline-block;
+    border: solid;
+    width: 300px;
+    font-size: 20px;
+    font-weight: bold;
+    text-align: center;
+}
+
+.groupEl {
+    display: inline-block;
+    text-decoration: none;
+    color: black;
+    text-align: left;
+    font-size: 10px;
+    padding: 5px;
+    margin: 10px;
+    background-color: rgb(209, 230, 231);
+    max-width: 90px;
+    max-height: 90px;
+}
+
+.group-title {
+    font-size: 12px;
+}

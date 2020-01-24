@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <link rel="stylesheet" href="/css/style.css">
+    </head>
+    <body>
+        <div class="main-content">
+            {{>header}}
+
+            <div class="container">
+                <div>
+                    <h3 id="title_label"></h3>
+                    <p id="date_label"></p>
+                    <p id="location_label"></p>
+                    <p id="description_label"></p>
+                </div>
+                <button id="details_edit_button">Edit Event</button>
+                <button id="details_delete_btn">Delete Event</button>
+                <button id="details_back_btn">Back to All Events</button>
+            </div>
+
+            {{>footer}}
+        </div>
+
+        <script src="/scripts/details-bundle.js"></script>
+    </body>
+</html>

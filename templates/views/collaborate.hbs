@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <link rel="stylesheet" href="/css/style.css">
+    </head>
+    <body>
+        <div class="main-content">
+            {{>header}}
+
+            <button id="collaborate_create-group_btn">Create a New Group</button>
+
+            <h2>My Groups</h2>
+            
+            <div id="collaborate_my-groups_div">
+                <div class="myGroups" id="userGroups"><h3>Groups I follow</h3></div>
+                <div class="myGroups" id="adminGroups"><h3>Groups I lead</h3></div>
+            </div>
+
+            {{>footer}}
+        </div>
+
+        <script src="/scripts/collaborate-bundle.js"></script>
+    </body>
+</html>

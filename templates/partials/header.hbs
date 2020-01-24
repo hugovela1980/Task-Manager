@@ -1,0 +1,38 @@
+
+<header>
+    <h1>Calendar App</h1>
+    <p id="header_welcome_label"></p>
+        
+    <nav>
+        <a id="header_home_link">Home</a>
+        <a id="header_events_link"></a>
+        <a id="header_create_link"></a>
+        <a id="header_collaborate_link"></a>
+        <a id="header_profile_link"></a>
+        <a id="header_auth_link"></a>
+        <a id="header_account_link"></a>
+    </nav>
+</header>
+
+<script>
+    if (!localStorage.getItem('authToken')) {
+        document.querySelector('#header_home_link').setAttribute('href', '/')
+        document.querySelector('#header_auth_link').setAttribute('href', '/users/login')
+        document.querySelector('#header_auth_link').textContent = 'Login'
+        document.querySelector('#header_account_link').setAttribute('href', '/users/account')
+        document.querySelector('#header_account_link').textContent = 'Create an Account'
+    } else {
+        document.querySelector('#header_welcome_label').textContent = `Hello,`
+        document.querySelector('#header_home_link').setAttribute('href', '/home')
+        document.querySelector('#header_events_link').setAttribute('href', '/events')
+        document.querySelector('#header_events_link').textContent = 'Events'
+        document.querySelector('#header_create_link').setAttribute('href', '/events/create')
+        document.querySelector('#header_create_link').textContent = 'Create'
+        document.querySelector('#header_collaborate_link').setAttribute('href', '/groups')
+        document.querySelector('#header_collaborate_link').textContent = 'Collaborate'
+        document.querySelector('#header_profile_link').setAttribute('href', '/users/profile')
+        document.querySelector('#header_profile_link').textContent = 'Profile'
+        document.querySelector('#header_auth_link').setAttribute('href', '/users/logout')
+        document.querySelector('#header_auth_link').textContent = 'Logout'
+    }        
+</script>

@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <link rel="stylesheet" href="/css/style.css">
+    </head>
+    <body>
+        <div class="main-content">
+            {{>header}}
+
+            <div class="container">
+                <form id="groups_find_form">
+                    <h2>Create a Group</h2>
+                    
+                    <h3>Give your group a name</h3>
+                    <input type="text" name="name">
+                    
+                    <h3>Find Collaborators</h3>
+                    <input id="find-collaborators-input" type="text" name="person">
+                    
+                    <div id="groups_add_div"></div><br>
+                    <br>
+                    <button type="submit">Create Group</button>
+                    <button></button>
+                </form>
+                
+            </div>
+            
+            {{>footer}}
+
+            <script src="/scripts/groups-bundle.js"></script>
+        </div>
+    </body>
+</html>

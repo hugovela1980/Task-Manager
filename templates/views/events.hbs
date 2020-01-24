@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <link rel="stylesheet" href="/css/style.css">
+    </head>
+    <body>
+        <div class="main-content">
+            {{>header}}
+
+            <div class="container">
+                <div id="list-buttons">
+                    <button id="all-events">All Events</button>
+                    <button id="today">Today</button>
+                    <button id="next-seven-days">Next 7 Days</button>
+                </div>
+
+                <div id="search-button">
+                    <button id="search-events">Search Events</button>
+                </div>
+
+                <div id="search-input"></div>
+            </div>
+                
+            <div class="container">
+                <div id="events"></div>
+            </div>
+        </div>
+        
+        {{>footer}}
+
+        <script src="/scripts/events-bundle.js"></script>
+    </body>
+</html>

@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <link rel="stylesheet" href="/css/style.css">
+    </head>
+    <body>
+        <div class="main-content">
+            {{>header}}
+
+            <form id="change-password">
+                <p>Current Password</p>
+                <input type="text" name="oldPassword" placeholder="enter your password">
+                <p>New Password</p>
+                <input type="text" name="newPassword" placeholder="enter a new password">
+                <p>Confirm Password</p>
+                <input type="text" name="confirmPassword" placeholder="confirm your new password"><br>
+                <input type="submit" value="Change Password ">
+                <button type="button" id="cancel">Cancel</button>
+            </form>
+            
+        </div>
+        
+        {{>footer}}
+
+        <script src="/scripts/reset-bundle.js"></script>
+    </body>
+</html>

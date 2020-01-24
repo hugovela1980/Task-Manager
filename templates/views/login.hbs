@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <link rel="stylesheet" href="/css/style.css">
+    </head>
+    <body>
+        <div class="main-content">
+            {{>header}}
+ 
+            <h2>Login</h2>
+ 
+            <form id="login">
+                <p>Email Address</p>
+                <input type="text" placeholder="email" name="email">
+                <p>Password</p>
+                <input type="text" placeholder="password" name="password">
+                <input type="submit" value="Login">
+            </form>
+ 
+            <h4>...or...</h4>
+            
+            <a href="/users/account">Create an Account</a>
+            <a href="/">Back</a>
+        </div>
+
+        {{>footer}}
+
+        <script src="/scripts/login-bundle.js"></script>
+    </body>
+</html>

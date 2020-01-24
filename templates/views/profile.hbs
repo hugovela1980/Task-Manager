@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <link rel="stylesheet" href="/css/style.css">
+    </head>
+    <body>
+        <div class="main-content">
+            {{>header}}
+            
+            <div id="user-profile">
+                <h3>User Profile</h3>
+                <p id="name"></p>
+                <p id="age"></p>
+                <p id="email"></p>
+            </div>
+
+            <button id="edit-button">Edit</button>
+            
+            <div id="user-password">
+                <h3>User Password</h3>
+                <p id="password">Password: ************</p>
+            </div>
+
+            <button id="change-password-button">Reset Password</button>
+        </div>
+
+        {{>footer}}
+        
+        <script src="/scripts/profile-bundle.js"></script>
+    </body>
+</html>
