@@ -12169,24 +12169,23 @@ function () {
 
           case 5:
             response = _context18.sent;
-            console.log(response.status);
 
             if (!(response.status === 201)) {
-              _context18.next = 14;
+              _context18.next = 13;
               break;
             }
 
-            _context18.next = 10;
+            _context18.next = 9;
             return response.json();
 
-          case 10:
+          case 9:
             _data14 = _context18.sent;
             return _context18.abrupt("return", _data14);
 
-          case 14:
+          case 13:
             throw new Error('unable to create a group');
 
-          case 15:
+          case 14:
           case "end":
             return _context18.stop();
         }
@@ -12270,11 +12269,9 @@ function () {
             _ref21 = _context22.sent;
             adminGroups = _ref21.adminGroups;
             userGroups = _ref21.userGroups;
+            console.log(adminGroups);
             userGroupsDiv = document.querySelector('#userGroups');
             adminGroupsDiv = document.querySelector('#adminGroups');
-            userGroups.forEach(function (group) {
-              return console.log(group.administrator);
-            });
             adminGroups.forEach(
             /*#__PURE__*/
             function () {
@@ -12354,8 +12351,8 @@ var generateGroupEl =
 function () {
   var _ref24 = _asyncToGenerator(
   /*#__PURE__*/
-  regeneratorRuntime.mark(function _callee23(group) {
-    var groupEl, groupNameEl, administratorEl;
+  regeneratorRuntime.mark(function _callee23(group, type) {
+    var groupEl, groupNameEl;
     return regeneratorRuntime.wrap(function _callee23$(_context23) {
       while (1) {
         switch (_context23.prev = _context23.next) {
@@ -12367,17 +12364,9 @@ function () {
             groupNameEl.className = 'group-title';
             groupNameEl.textContent = "Name: ".concat(group.name);
             groupEl.appendChild(groupNameEl);
-            administratorEl = document.createElement('p');
-            _context23.next = 10;
-            return getGroupAdministrator(group.administrator);
-
-          case 10:
-            _context23.t0 = _context23.sent;
-            administratorEl.textContent = _context23.t0 + '...';
-            groupEl.appendChild(administratorEl);
             return _context23.abrupt("return", groupEl);
 
-          case 14:
+          case 8:
           case "end":
             return _context23.stop();
         }
@@ -12385,7 +12374,7 @@ function () {
     }, _callee23);
   }));
 
-  return function generateGroupEl(_x20) {
+  return function generateGroupEl(_x20, _x21) {
     return _ref24.apply(this, arguments);
   };
 }();
@@ -12437,7 +12426,7 @@ function () {
     }, _callee24);
   }));
 
-  return function getGroupCollaborator(_x21) {
+  return function getGroupCollaborator(_x22) {
     return _ref25.apply(this, arguments);
   };
 }();
@@ -12489,7 +12478,7 @@ function () {
     }, _callee25);
   }));
 
-  return function getGroupAdministrator(_x22) {
+  return function getGroupAdministrator(_x23) {
     return _ref26.apply(this, arguments);
   };
 }();
@@ -12561,6 +12550,7 @@ function () {
   var _ref2 = _asyncToGenerator(
   /*#__PURE__*/
   regeneratorRuntime.mark(function _callee2(e) {
+    var group;
     return regeneratorRuntime.wrap(function _callee2$(_context2) {
       while (1) {
         switch (_context2.prev = _context2.next) {
@@ -12571,26 +12561,29 @@ function () {
             return Object(_functions__WEBPACK_IMPORTED_MODULE_0__["createGroup"])(e.target.elements.name.value);
 
           case 4:
-            _context2.next = 9;
+            group = _context2.sent;
+            console.log(group);
+            _context2.next = 11;
             break;
 
-          case 6:
-            _context2.prev = 6;
+          case 8:
+            _context2.prev = 8;
             _context2.t0 = _context2["catch"](1);
             console.log(_context2.t0);
 
-          case 9:
+          case 11:
             // blank out collaborator local storage data
             localStorage.removeItem('collaborators');
             localStorage.removeItem('addedCollaborators'); // go to back Collaborate page
-            // location.replace('/groups')
 
-          case 11:
+            location.replace('/groups');
+
+          case 14:
           case "end":
             return _context2.stop();
         }
       }
-    }, _callee2, null, [[1, 6]]);
+    }, _callee2, null, [[1, 8]]);
   }));
 
   return function (_x2) {

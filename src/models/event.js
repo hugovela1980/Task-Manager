@@ -31,9 +31,20 @@ const eventSchema = new mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         required: true,
         ref: 'User'
+    },
+    group: {
+        type: mongoose.Schema.Types.ObjectId,
+        required: false,
+        ref: 'Group'
     }
 }, {
     timestamps: true
+})
+
+eventSchema.virtual('groups', {
+    ref: 'Group',
+    localField: '_id',
+    foreignField: 'events'
 })
 
 eventSchema.statics.sortEventsByDate = async (events) => {

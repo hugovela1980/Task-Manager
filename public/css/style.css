@@ -79,13 +79,14 @@ button {
     display: inline-block;
     text-decoration: none;
     color: black;
+    border: 1px solid black;
     text-align: left;
     font-size: 10px;
     padding: 5px;
     margin: 10px;
     background-color: rgb(209, 230, 231);
-    max-width: 90px;
-    max-height: 90px;
+    width: 60px;
+    height: 60px;
 }
 
 .group-title {

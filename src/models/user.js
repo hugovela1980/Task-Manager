@@ -49,7 +49,7 @@ const userSchema = new mongoose.Schema({
     }],
     avatar: {
         type: Buffer
-    },
+    }
 }, {
     timestamps: true
 })
@@ -60,10 +60,16 @@ userSchema.virtual('events', {
     foreignField: 'owner'
 })
 
+userSchema.virtual('createdGroups', {
+    ref: 'Group',
+    localField: '_id',
+    foreignField: 'creator'
+})
+
 userSchema.virtual('groups', {
     ref: 'Group',
     localField: '_id',
-    foreignField: 'administrator'
+    foreignField: 'collaborators'
 })
 
 userSchema.methods.toJSON = function () {

@@ -406,7 +406,6 @@ export const createGroup = async (name) => {
         body: JSON.stringify(newGroup)
     })
     
-    console.log(response.status)
     if (response.status === 201) {
         const data = await response.json()
         return data
@@ -434,9 +433,9 @@ const getGroups = async () => {
 
 export const renderGroups = async () => {
     const { adminGroups, userGroups } = await getGroups()
+    console.log(adminGroups)
     const userGroupsDiv = document.querySelector('#userGroups')
     const adminGroupsDiv = document.querySelector('#adminGroups')
-    userGroups.forEach(group => console.log(group.administrator))
 
     adminGroups.forEach(async (group) => {
         const groupEl = await generateGroupEl(group)
@@ -449,7 +448,7 @@ export const renderGroups = async () => {
     })
 }
 
-const generateGroupEl = async (group) => {
+const generateGroupEl = async (group, type) => {
     const groupEl = document.createElement('a')
         groupEl.setAttribute('href', `/groups/details#${group._id}`)
         groupEl.className = 'groupEl'
@@ -457,10 +456,7 @@ const generateGroupEl = async (group) => {
         groupNameEl.className = 'group-title'
         groupNameEl.textContent = `Name: ${group.name}`
     groupEl.appendChild(groupNameEl)
-    const administratorEl = document.createElement('p')
-        administratorEl.textContent = await getGroupAdministrator(group.administrator) + '...'
-    groupEl.appendChild(administratorEl)
-
+    
     return groupEl
 }
 

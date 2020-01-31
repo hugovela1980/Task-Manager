@@ -24,7 +24,8 @@ document.querySelector('#groups_find_form').addEventListener('submit', async (e)
     e.preventDefault()
     try {
         // request a group creation with the added collaborators and the name of the group
-        await createGroup(e.target.elements.name.value)    
+        const group = await createGroup(e.target.elements.name.value)    
+        console.log(group)
     } catch(e) {
         console.log(e)
     }
@@ -34,6 +35,5 @@ document.querySelector('#groups_find_form').addEventListener('submit', async (e)
     localStorage.removeItem('addedCollaborators')
     
     // go to back Collaborate page
-    // location.replace('/groups')
+    location.replace('/groups')
 })
-

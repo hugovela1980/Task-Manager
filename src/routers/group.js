@@ -5,11 +5,14 @@ const User = require('../models/user')
 const router = new express.Router()
 
 router.post('/groups', auth, async (req, res) => {
+    const creator = req.user._id
+    req.body.collaborators.push(creator)
+
     const group = new Group({
         ...req.body,
-        administrator: req.user._id
+        creator
     })
-
+    
     try {
         await group.save()
         res.status(201).send(group)
@@ -19,7 +22,6 @@ router.post('/groups', auth, async (req, res) => {
 })
 
 router.get('/groups/all-groups', auth, async (req, res) => {
-    console.log(req.user)
     try {
         await req.user.populate('groups').execPopulate()
         res.send(req.user.groups)
@@ -51,16 +53,20 @@ router.get('/groups/collaborators', auth, async (req, res) => {
 
 router.get('/collaborate', auth, async (req, res) => {
     try {
+        await req.user.populate('createdGroups').execPopulate()
+        const adminGroups = req.user.createdGroups.map(group => {
+            return {_id: group._id, name: group.name}
+        })
         await req.user.populate('groups').execPopulate()
-        const adminGroups = req.user.groups
-        const allGroups = await Group.find({})
-        const userGroups = allGroups.filter((group) => group.collaborators.includes(req.user.id))
+        const userGroups = req.user.groups.map(group => {
+            return {_id: group._id, name: group.name}
+        })
         
         const groups = {
-            adminGroups: adminGroups,
-            userGroups: userGroups
+            adminGroups,
+            userGroups
         }
-        
+
         res.send(groups)
     } catch(e) {
         res.status(500).send()
