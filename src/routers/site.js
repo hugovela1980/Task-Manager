@@ -27,13 +27,13 @@ router.get('/home', (req, res) => {
     })
 })
 
-router.get('/events', (req, res) => {
-    res.render('events', {
+router.get('/tasks', (req, res) => {
+    res.render('tasks', {
         developer: 'Hugo Vela'
     })
 })
 
-router.get('/events/create', (req, res) => {
+router.get('/tasks/create', (req, res) => {
     res.render('create', {
         developer: 'Hugo Vela'
     })
@@ -69,19 +69,19 @@ router.get('/users/profile/reset', (req, res) => {
     })
 })
 
-router.get('/events/details', (req, res) => {
+router.get('/tasks/details', (req, res) => {
     res.render('details', {
         developer: 'Hugo Vela'
     })
 })
 
-router.get('/events/details/edit', (req, res) => {
+router.get('/tasks/details/edit', (req, res) => {
     res.render('edit', {
         developer: 'Hugo Vela'
     })
 })
 
-router.get('/events/delete', (req, res) => {
+router.get('/tasks/delete', (req, res) => {
     res.render('delete', {
         developer: 'Hugo Vela'
     })

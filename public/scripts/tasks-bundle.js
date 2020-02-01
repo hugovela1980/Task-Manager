@@ -11165,60 +11165,11 @@ module.exports = g;
 
 /***/ }),
 
-/***/ "./public/js/events.js":
-/*!*****************************!*\
-  !*** ./public/js/events.js ***!
-  \*****************************/
-/*! no exports provided */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _functions__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./functions */ "./public/js/functions.js");
-console.log('client side events.js is working');
-
-var allEventsButton = document.querySelector('#all-events');
-var todayButton = document.querySelector('#today');
-var nextSevenDaysButton = document.querySelector('#next-seven-days');
-var searchEventsButton = document.querySelector('#search-events');
-Object(_functions__WEBPACK_IMPORTED_MODULE_0__["renderEvents"])(allEventsButton.id);
-allEventsButton.addEventListener('click', function (e) {
-  Object(_functions__WEBPACK_IMPORTED_MODULE_0__["renderEvents"])(allEventsButton.id);
-});
-todayButton.addEventListener('click', function (e) {
-  Object(_functions__WEBPACK_IMPORTED_MODULE_0__["renderEvents"])(todayButton.id);
-});
-nextSevenDaysButton.addEventListener('click', function (e) {
-  Object(_functions__WEBPACK_IMPORTED_MODULE_0__["renderEvents"])(nextSevenDaysButton.id);
-});
-searchEventsButton.addEventListener('click', function (e) {
-  var searchDiv = document.querySelector('#search-input');
-  var searchBox = document.createElement('input');
-  searchBox.setAttribute('type', 'text');
-  var cancelButton = document.createElement('button');
-  cancelButton.textContent = 'Cancel';
-  searchDiv.appendChild(searchBox);
-  searchDiv.appendChild(cancelButton);
-  searchBox.addEventListener('input', function (e) {
-    localStorage.setItem('keywords', e.target.value);
-    Object(_functions__WEBPACK_IMPORTED_MODULE_0__["searchAllEvents"])(e.target.value).then(function (events) {
-      Object(_functions__WEBPACK_IMPORTED_MODULE_0__["renderEvents"])(searchEventsButton.id);
-    })["catch"](function (e) {
-      console.log(e);
-    });
-  });
-  cancelButton.addEventListener('click', function (e) {
-    location.reload();
-  });
-});
-
-/***/ }),
-
 /***/ "./public/js/functions.js":
 /*!********************************!*\
   !*** ./public/js/functions.js ***!
   \********************************/
-/*! exports provided: createUser, updateProfile, changePassword, loginUser, logoutUser, getUserProfile, createEvent, deleteEvent, renderSingleEvent, renderEvents, searchAllEvents, getEventById, editEvent, findCollaborators, loadCollaborators, renderCollaborators, renderAddedCollaborators, createGroup, renderGroups */
+/*! exports provided: createUser, updateProfile, changePassword, loginUser, logoutUser, getUserProfile, createTask, deleteTask, renderSingleTask, renderTasks, searchAllTasks, getTaskById, editTask, findCollaborators, loadCollaborators, renderCollaborators, renderAddedCollaborators, createGroup, renderGroups */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -11229,13 +11180,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "loginUser", function() { return loginUser; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "logoutUser", function() { return logoutUser; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getUserProfile", function() { return getUserProfile; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "createEvent", function() { return createEvent; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "deleteEvent", function() { return deleteEvent; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "renderSingleEvent", function() { return renderSingleEvent; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "renderEvents", function() { return renderEvents; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "searchAllEvents", function() { return searchAllEvents; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getEventById", function() { return getEventById; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "editEvent", function() { return editEvent; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "createTask", function() { return createTask; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "deleteTask", function() { return deleteTask; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "renderSingleTask", function() { return renderSingleTask; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "renderTasks", function() { return renderTasks; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "searchAllTasks", function() { return searchAllTasks; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getTaskById", function() { return getTaskById; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "editTask", function() { return editTask; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "findCollaborators", function() { return findCollaborators; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "loadCollaborators", function() { return loadCollaborators; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "renderCollaborators", function() { return renderCollaborators; });
@@ -11558,12 +11509,12 @@ function () {
     return _ref6.apply(this, arguments);
   };
 }();
-var createEvent =
+var createTask =
 /*#__PURE__*/
 function () {
   var _ref7 = _asyncToGenerator(
   /*#__PURE__*/
-  regeneratorRuntime.mark(function _callee7(eventData) {
+  regeneratorRuntime.mark(function _callee7(taskData) {
     var response, _data6, _data7;
 
     return regeneratorRuntime.wrap(function _callee7$(_context7) {
@@ -11571,13 +11522,13 @@ function () {
         switch (_context7.prev = _context7.next) {
           case 0:
             _context7.next = 2;
-            return fetch('/events', {
+            return fetch('/tasks', {
               method: 'POST',
               headers: {
                 'Content-Type': 'application/json',
                 'Authorization': "Bearer ".concat(localStorage.getItem('authToken'))
               },
-              body: JSON.stringify(eventData)
+              body: JSON.stringify(taskData)
             });
 
           case 2:
@@ -11611,11 +11562,11 @@ function () {
     }, _callee7);
   }));
 
-  return function createEvent(_x5) {
+  return function createTask(_x5) {
     return _ref7.apply(this, arguments);
   };
 }();
-var deleteEvent =
+var deleteTask =
 /*#__PURE__*/
 function () {
   var _ref8 = _asyncToGenerator(
@@ -11628,7 +11579,7 @@ function () {
         switch (_context8.prev = _context8.next) {
           case 0:
             _context8.next = 2;
-            return fetch("/events/delete?id=".concat(id), {
+            return fetch("/tasks/delete?id=".concat(id), {
               method: 'DELETE',
               headers: {
                 'Content-Type': 'application/json',
@@ -11665,11 +11616,11 @@ function () {
     }, _callee8);
   }));
 
-  return function deleteEvent(_x6) {
+  return function deleteTask(_x6) {
     return _ref8.apply(this, arguments);
   };
 }();
-var renderSingleEvent =
+var renderSingleTask =
 /*#__PURE__*/
 function () {
   var _ref9 = _asyncToGenerator(
@@ -11681,7 +11632,7 @@ function () {
         switch (_context9.prev = _context9.next) {
           case 0:
             _context9.next = 2;
-            return getEventById(id);
+            return getTaskById(id);
 
           case 2:
             event = _context9.sent;
@@ -11698,48 +11649,48 @@ function () {
     }, _callee9);
   }));
 
-  return function renderSingleEvent(_x7) {
+  return function renderSingleTask(_x7) {
     return _ref9.apply(this, arguments);
   };
 }();
-var renderEvents =
+var renderTasks =
 /*#__PURE__*/
 function () {
   var _ref10 = _asyncToGenerator(
   /*#__PURE__*/
   regeneratorRuntime.mark(function _callee10(domId) {
-    var eventsDiv, events;
+    var tasksDiv, tasks;
     return regeneratorRuntime.wrap(function _callee10$(_context10) {
       while (1) {
         switch (_context10.prev = _context10.next) {
           case 0:
-            eventsDiv = document.querySelector('#events');
-            eventsDiv.innerHTML = '';
+            tasksDiv = document.querySelector('#tasks');
+            tasksDiv.innerHTML = '';
 
-            if (!(domId === 'search-events')) {
+            if (!(domId === 'search-tasks')) {
               _context10.next = 8;
               break;
             }
 
             _context10.next = 5;
-            return searchAllEvents(localStorage.getItem('keywords'));
+            return searchAllTasks(localStorage.getItem('keywords'));
 
           case 5:
-            events = _context10.sent;
+            tasks = _context10.sent;
             _context10.next = 11;
             break;
 
           case 8:
             _context10.next = 10;
-            return getAllEvents(domId);
+            return getAllTasks(domId);
 
           case 10:
-            events = _context10.sent;
+            tasks = _context10.sent;
 
           case 11:
-            events.forEach(function (event) {
-              var eventEl = generateEventDOM(event);
-              eventsDiv.appendChild(eventEl);
+            tasks.forEach(function (task) {
+              var taskEl = generateTaskDOM(task);
+              tasksDiv.appendChild(taskEl);
             });
 
           case 12:
@@ -11750,25 +11701,25 @@ function () {
     }, _callee10);
   }));
 
-  return function renderEvents(_x8) {
+  return function renderTasks(_x8) {
     return _ref10.apply(this, arguments);
   };
 }();
 
-var generateEventDOM = function generateEventDOM(event) {
-  var eventEl = document.createElement('a');
-  eventEl.classList.add('list-item');
-  eventEl.setAttribute('href', "/events/details#".concat(event._id));
+var generateTaskDOM = function generateTaskDOM(task) {
+  var taskEl = document.createElement('a');
+  taskEl.classList.add('list-item');
+  taskEl.setAttribute('href', "/tasks/details#".concat(task._id));
   var titleEl = document.createElement('h3');
-  titleEl.textContent = event.title;
-  eventEl.appendChild(titleEl);
+  titleEl.textContent = task.title;
+  taskEl.appendChild(titleEl);
   var dateEl = document.createElement('p');
-  dateEl.textContent = event.date;
-  eventEl.appendChild(dateEl);
-  return eventEl;
+  dateEl.textContent = task.date;
+  taskEl.appendChild(dateEl);
+  return taskEl;
 };
 
-var searchAllEvents =
+var searchAllTasks =
 /*#__PURE__*/
 function () {
   var _ref11 = _asyncToGenerator(
@@ -11781,7 +11732,7 @@ function () {
         switch (_context11.prev = _context11.next) {
           case 0:
             _context11.next = 2;
-            return fetch("/events/search-events?keywords=".concat(searchText), {
+            return fetch("/tasks/search-tasks?keywords=".concat(searchText), {
               method: 'GET',
               headers: {
                 'Content-Type': 'application/json',
@@ -11815,12 +11766,12 @@ function () {
     }, _callee11);
   }));
 
-  return function searchAllEvents(_x9) {
+  return function searchAllTasks(_x9) {
     return _ref11.apply(this, arguments);
   };
 }();
 
-var getAllEvents =
+var getAllTasks =
 /*#__PURE__*/
 function () {
   var _ref12 = _asyncToGenerator(
@@ -11833,7 +11784,7 @@ function () {
         switch (_context12.prev = _context12.next) {
           case 0:
             _context12.next = 2;
-            return fetch("/events/".concat(domId), {
+            return fetch("/tasks/".concat(domId), {
               method: 'GET',
               headers: {
                 'Content-Type': 'application/json',
@@ -11857,7 +11808,7 @@ function () {
             return _context12.abrupt("return", _data10);
 
           case 10:
-            throw new Error('Unable to fetch events');
+            throw new Error('Unable to fetch tasks');
 
           case 11:
           case "end":
@@ -11867,12 +11818,12 @@ function () {
     }, _callee12);
   }));
 
-  return function getAllEvents(_x10) {
+  return function getAllTasks(_x10) {
     return _ref12.apply(this, arguments);
   };
 }();
 
-var getEventById =
+var getTaskById =
 /*#__PURE__*/
 function () {
   var _ref13 = _asyncToGenerator(
@@ -11885,7 +11836,7 @@ function () {
         switch (_context13.prev = _context13.next) {
           case 0:
             _context13.next = 2;
-            return fetch("/events/data?id=".concat(id), {
+            return fetch("/tasks/data?id=".concat(id), {
               method: 'GET',
               headers: {
                 'Content-Type': 'application/json',
@@ -11909,7 +11860,7 @@ function () {
             return _context13.abrupt("return", _data11);
 
           case 10:
-            throw new Error('Unable to fetch event');
+            throw new Error('Unable to fetch task');
 
           case 11:
           case "end":
@@ -11919,16 +11870,16 @@ function () {
     }, _callee13);
   }));
 
-  return function getEventById(_x11) {
+  return function getTaskById(_x11) {
     return _ref13.apply(this, arguments);
   };
 }();
-var editEvent =
+var editTask =
 /*#__PURE__*/
 function () {
   var _ref14 = _asyncToGenerator(
   /*#__PURE__*/
-  regeneratorRuntime.mark(function _callee14(id, eventData) {
+  regeneratorRuntime.mark(function _callee14(id, taskData) {
     var response, _data12;
 
     return regeneratorRuntime.wrap(function _callee14$(_context14) {
@@ -11936,13 +11887,13 @@ function () {
         switch (_context14.prev = _context14.next) {
           case 0:
             _context14.next = 2;
-            return fetch("/events/details/edit?id=".concat(id), {
+            return fetch("/tasks/details/edit?id=".concat(id), {
               method: 'PATCH',
               headers: {
                 'Content-Type': 'application/json',
                 'Authorization': "Bearer ".concat(localStorage.getItem('authToken'))
               },
-              body: JSON.stringify(eventData)
+              body: JSON.stringify(taskData)
             });
 
           case 2:
@@ -11971,7 +11922,7 @@ function () {
     }, _callee14);
   }));
 
-  return function editEvent(_x12, _x13) {
+  return function editTask(_x12, _x13) {
     return _ref14.apply(this, arguments);
   };
 }();
@@ -12534,18 +12485,67 @@ function () {
 
 /***/ }),
 
+/***/ "./public/js/tasks.js":
+/*!****************************!*\
+  !*** ./public/js/tasks.js ***!
+  \****************************/
+/*! no exports provided */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _functions__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./functions */ "./public/js/functions.js");
+console.log('client side tasks.js is working');
+
+var allTasksButton = document.querySelector('#all-tasks');
+var todayButton = document.querySelector('#today');
+var nextSevenDaysButton = document.querySelector('#next-seven-days');
+var searchTasksButton = document.querySelector('#search-tasks');
+Object(_functions__WEBPACK_IMPORTED_MODULE_0__["renderTasks"])(allTasksButton.id);
+allTasksButton.addEventListener('click', function (e) {
+  Object(_functions__WEBPACK_IMPORTED_MODULE_0__["renderTasks"])(allTasksButton.id);
+});
+todayButton.addEventListener('click', function (e) {
+  Object(_functions__WEBPACK_IMPORTED_MODULE_0__["renderTasks"])(todayButton.id);
+});
+nextSevenDaysButton.addEventListener('click', function (e) {
+  Object(_functions__WEBPACK_IMPORTED_MODULE_0__["renderTasks"])(nextSevenDaysButton.id);
+});
+searchTasksButton.addEventListener('click', function (e) {
+  var searchDiv = document.querySelector('#search-input');
+  var searchBox = document.createElement('input');
+  searchBox.setAttribute('type', 'text');
+  var cancelButton = document.createElement('button');
+  cancelButton.textContent = 'Cancel';
+  searchDiv.appendChild(searchBox);
+  searchDiv.appendChild(cancelButton);
+  searchBox.addEventListener('input', function (e) {
+    localStorage.setItem('keywords', e.target.value);
+    Object(_functions__WEBPACK_IMPORTED_MODULE_0__["searchAllTasks"])(e.target.value).then(function (tasks) {
+      Object(_functions__WEBPACK_IMPORTED_MODULE_0__["renderTasks"])(searchTasksButton.id);
+    })["catch"](function (e) {
+      console.log(e);
+    });
+  });
+  cancelButton.addEventListener('click', function (e) {
+    location.reload();
+  });
+});
+
+/***/ }),
+
 /***/ 4:
-/*!**************************************************!*\
-  !*** multi babel-polyfill ./public/js/events.js ***!
-  \**************************************************/
+/*!*************************************************!*\
+  !*** multi babel-polyfill ./public/js/tasks.js ***!
+  \*************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
 __webpack_require__(/*! babel-polyfill */"./node_modules/babel-polyfill/lib/index.js");
-module.exports = __webpack_require__(/*! ./public/js/events.js */"./public/js/events.js");
+module.exports = __webpack_require__(/*! ./public/js/tasks.js */"./public/js/tasks.js");
 
 
 /***/ })
 
 /******/ });
-//# sourceMappingURL=events-bundle.js.map
+//# sourceMappingURL=tasks-bundle.js.map

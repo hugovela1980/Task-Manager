@@ -1,26 +1,26 @@
-console.log('client side events.js is working')
-import { renderEvents, searchAllEvents } from './functions'
+console.log('client side tasks.js is working')
+import { renderTasks, searchAllTasks } from './functions'
 
-const allEventsButton = document.querySelector('#all-events')
+const allTasksButton = document.querySelector('#all-tasks')
 const todayButton = document.querySelector('#today')
 const nextSevenDaysButton = document.querySelector('#next-seven-days')
-const searchEventsButton = document.querySelector('#search-events')
+const searchTasksButton = document.querySelector('#search-tasks')
 
-renderEvents(allEventsButton.id)
+renderTasks(allTasksButton.id)
 
-allEventsButton.addEventListener('click', (e) => {
-    renderEvents(allEventsButton.id)
+allTasksButton.addEventListener('click', (e) => {
+    renderTasks(allTasksButton.id)
 })
- 
+
 todayButton.addEventListener('click', (e) => {
-    renderEvents(todayButton.id)
-})
- 
-nextSevenDaysButton.addEventListener('click', (e) => {
-    renderEvents(nextSevenDaysButton.id)
+    renderTasks(todayButton.id)
 })
 
-searchEventsButton.addEventListener('click', (e) => {
+nextSevenDaysButton.addEventListener('click', (e) => {
+    renderTasks(nextSevenDaysButton.id)
+})
+
+searchTasksButton.addEventListener('click', (e) => {
     const searchDiv = document.querySelector('#search-input')
     const searchBox = document.createElement('input')
     searchBox.setAttribute('type', 'text')
@@ -33,8 +33,8 @@ searchEventsButton.addEventListener('click', (e) => {
     searchBox.addEventListener('input', (e) => {
         localStorage.setItem('keywords', e.target.value)
 
-        searchAllEvents(e.target.value).then((events) => {
-            renderEvents(searchEventsButton.id)
+        searchAllTasks(e.target.value).then((tasks) => {
+            renderTasks(searchTasksButton.id)
         }).catch((e) => {
             console.log(e)
         })

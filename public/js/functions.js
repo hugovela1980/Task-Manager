@@ -102,14 +102,14 @@ export const getUserProfile = async () => {
     }
 }
 
-export const createEvent = async (eventData) => {
-    const response = await fetch('/events', {
+export const createTask = async (taskData) => {
+    const response = await fetch('/tasks', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
             'Authorization': `Bearer ${localStorage.getItem('authToken')}`,
         },
-        body: JSON.stringify(eventData)
+        body: JSON.stringify(taskData)
     })
     
     if (response.status === 201) {
@@ -121,8 +121,8 @@ export const createEvent = async (eventData) => {
     }
 }
 
-export const deleteEvent = async (id) => {
-    const response = await fetch(`/events/delete?id=${id}`, {
+export const deleteTask = async (id) => {
+    const response = await fetch(`/tasks/delete?id=${id}`, {
         method: 'DELETE',
         headers: {
             'Content-Type': 'application/json',
@@ -139,49 +139,49 @@ export const deleteEvent = async (id) => {
     }
 }
 
-export const renderSingleEvent = async (id) => {
-    const event = await getEventById(id)
+export const renderSingleTask = async (id) => {
+    const event = await getTaskById(id)
     document.querySelector('#title_label').textContent = event.title
     document.querySelector('#date_label').textContent = event.date
     document.querySelector('#location_label').textContent = event.location
     document.querySelector('#description_label').textContent = event.description
 }
 
-export const renderEvents = async (domId) => {
-    const eventsDiv = document.querySelector('#events')
-    let events
-    eventsDiv.innerHTML = ''
+export const renderTasks = async (domId) => {
+    const tasksDiv = document.querySelector('#tasks')
+    let tasks
+    tasksDiv.innerHTML = ''
 
-    if (domId === 'search-events') {
-        events = await searchAllEvents(localStorage.getItem('keywords'))
+    if (domId === 'search-tasks') {
+        tasks = await searchAllTasks(localStorage.getItem('keywords'))
     } else {
-        events = await getAllEvents(domId)
+        tasks = await getAllTasks(domId)
     }
     
-    events.forEach((event) => {
-        const eventEl = generateEventDOM(event)        
-        eventsDiv.appendChild(eventEl)
+    tasks.forEach((task) => {
+        const taskEl = generateTaskDOM(task)        
+        tasksDiv.appendChild(taskEl)
     })
 }
 
-const generateEventDOM = (event) => {
-    const eventEl = document.createElement('a')
-    eventEl.classList.add('list-item')
-    eventEl.setAttribute('href', `/events/details#${event._id}`)
+const generateTaskDOM = (task) => {
+    const taskEl = document.createElement('a')
+    taskEl.classList.add('list-item')
+    taskEl.setAttribute('href', `/tasks/details#${task._id}`)
 
     const titleEl = document.createElement('h3')
-    titleEl.textContent = event.title
-    eventEl.appendChild(titleEl)
+    titleEl.textContent = task.title
+    taskEl.appendChild(titleEl)
 
     const dateEl = document.createElement('p')
-    dateEl.textContent = event.date
-    eventEl.appendChild(dateEl)
+    dateEl.textContent = task.date
+    taskEl.appendChild(dateEl)
 
-    return eventEl
+    return taskEl
 }
 
-export const searchAllEvents = async (searchText) => {
-    const response = await fetch(`/events/search-events?keywords=${searchText}`, {
+export const searchAllTasks = async (searchText) => {
+    const response = await fetch(`/tasks/search-tasks?keywords=${searchText}`, {
         method: 'GET',
         headers: {
             'Content-Type': 'application/json',
@@ -197,8 +197,8 @@ export const searchAllEvents = async (searchText) => {
     }
 }
 
-const getAllEvents = async (domId) => {
-    const response = await fetch(`/events/${domId}`, {
+const getAllTasks = async (domId) => {
+    const response = await fetch(`/tasks/${domId}`, {
         method: 'GET',
         headers: {
             'Content-Type': 'application/json',
@@ -210,12 +210,12 @@ const getAllEvents = async (domId) => {
         const data = await response.json()
         return data
     } else {
-        throw new Error('Unable to fetch events')
+        throw new Error('Unable to fetch tasks')
     }
 }
 
-export const getEventById = async (id) => {
-    const response = await fetch(`/events/data?id=${id}`, {
+export const getTaskById = async (id) => {
+    const response = await fetch(`/tasks/data?id=${id}`, {
         method: 'GET',
         headers: {
             'Content-Type': 'application/json',
@@ -227,18 +227,18 @@ export const getEventById = async (id) => {
         const data = await response.json()
         return data
     } else {
-        throw new Error('Unable to fetch event')
+        throw new Error('Unable to fetch task')
     }
 }
 
-export const editEvent = async (id, eventData) => {
-    const response = await fetch(`/events/details/edit?id=${id}`, {
+export const editTask = async (id, taskData) => {
+    const response = await fetch(`/tasks/details/edit?id=${id}`, {
         method: 'PATCH',
         headers: {
             'Content-Type': 'application/json',
             'Authorization': `Bearer ${localStorage.getItem('authToken')}`
         },
-        body: JSON.stringify(eventData)
+        body: JSON.stringify(taskData)
     })
 
     if (response.status === 200) {

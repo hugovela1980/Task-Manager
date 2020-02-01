@@ -6,7 +6,7 @@ module.exports = {
         login: ['babel-polyfill', './public/js/login.js'],
         account: ['babel-polyfill', './public/js/account.js'],
         home: ['babel-polyfill', './public/js/home.js'],
-        events: ['babel-polyfill', './public/js/events.js'],
+        tasks: ['babel-polyfill', './public/js/tasks.js'],
         details: ['babel-polyfill', './public/js/details.js'],
         edit: ['babel-polyfill', './public/js/edit.js'],
         create: ['babel-polyfill', './public/js/create.js'],

@@ -1,11 +1,11 @@
 
 <header>
-    <h1>Calendar App</h1>
+    <h1>Task Manager App</h1>
     <p id="header_welcome_label"></p>
         
     <nav>
         <a id="header_home_link">Home</a>
-        <a id="header_events_link"></a>
+        <a id="header_tasks_link"></a>
         <a id="header_create_link"></a>
         <a id="header_collaborate_link"></a>
         <a id="header_profile_link"></a>
@@ -24,9 +24,9 @@
     } else {
         document.querySelector('#header_welcome_label').textContent = `Hello,`
         document.querySelector('#header_home_link').setAttribute('href', '/home')
-        document.querySelector('#header_events_link').setAttribute('href', '/events')
-        document.querySelector('#header_events_link').textContent = 'Events'
-        document.querySelector('#header_create_link').setAttribute('href', '/events/create')
+        document.querySelector('#header_tasks_link').setAttribute('href', '/tasks')
+        document.querySelector('#header_tasks_link').textContent = 'Tasks'
+        document.querySelector('#header_create_link').setAttribute('href', '/tasks/create')
         document.querySelector('#header_create_link').textContent = 'Create'
         document.querySelector('#header_collaborate_link').setAttribute('href', '/groups')
         document.querySelector('#header_collaborate_link').textContent = 'Collaborate'

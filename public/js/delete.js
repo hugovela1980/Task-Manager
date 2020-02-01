@@ -1,16 +1,16 @@
 console.log('client side delete.js is working')
-import { renderSingleEvent, deleteEvent } from './functions'
+import { renderSingleTask, deleteTask } from './functions'
 
 const id = location.hash.substring(1)
 
-renderSingleEvent(id)
+renderSingleTask(id)
 
 document.querySelector('#delete_delete_btn').addEventListener('click', (e) => {
-    deleteEvent(id).then((data) => {
-        location.replace('/events')
+    deleteTask(id).then((data) => {
+        location.replace('/tasks')
     })
 })
 
 document.querySelector('#delete_cancel_btn').addEventListener('click', (e) => {
-    location.replace(`/events/details#${id}`)
+    location.replace(`/tasks/details#${id}`)
 })
