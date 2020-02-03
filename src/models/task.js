@@ -32,17 +32,17 @@ const taskSchema = new mongoose.Schema({
         required: true,
         ref: 'User'
     },
-    group: {
+    project: {
         type: mongoose.Schema.Types.ObjectId,
         required: false,
-        ref: 'Group'
+        ref: 'Project'
     }
 }, {
     timestamps: true
 })
 
-taskSchema.virtual('groups', {
-    ref: 'Group',
+taskSchema.virtual('projects', {
+    ref: 'Project',
     localField: '_id',
     foreignField: 'tasks'
 })

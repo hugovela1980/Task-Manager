@@ -11165,29 +11165,1374 @@ module.exports = g;
 
 /***/ }),
 
-/***/ "./public/js/group-details.js":
-/*!************************************!*\
-  !*** ./public/js/group-details.js ***!
-  \************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
+/***/ "./public/js/functions.js":
+/*!********************************!*\
+  !*** ./public/js/functions.js ***!
+  \********************************/
+/*! exports provided: createUser, updateProfile, changePassword, loginUser, logoutUser, getUserProfile, createTask, deleteTask, renderSingleTask, renderTasks, searchAllTasks, getTaskById, editTask, findCollaborators, loadCollaborators, renderCollaborators, renderAddedCollaborators, createProject, renderSingleProject, renderProjects */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
-console.log('client side group-details.js is working');
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "createUser", function() { return createUser; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "updateProfile", function() { return updateProfile; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "changePassword", function() { return changePassword; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "loginUser", function() { return loginUser; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "logoutUser", function() { return logoutUser; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getUserProfile", function() { return getUserProfile; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "createTask", function() { return createTask; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "deleteTask", function() { return deleteTask; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "renderSingleTask", function() { return renderSingleTask; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "renderTasks", function() { return renderTasks; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "searchAllTasks", function() { return searchAllTasks; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getTaskById", function() { return getTaskById; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "editTask", function() { return editTask; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "findCollaborators", function() { return findCollaborators; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "loadCollaborators", function() { return loadCollaborators; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "renderCollaborators", function() { return renderCollaborators; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "renderAddedCollaborators", function() { return renderAddedCollaborators; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "createProject", function() { return createProject; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "renderSingleProject", function() { return renderSingleProject; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "renderProjects", function() { return renderProjects; });
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
+
+function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
+
+var saveToken = function saveToken(token) {
+  localStorage.setItem('authToken', token);
+};
+
+var createUser =
+/*#__PURE__*/
+function () {
+  var _ref = _asyncToGenerator(
+  /*#__PURE__*/
+  regeneratorRuntime.mark(function _callee(userData) {
+    var response, _data;
+
+    return regeneratorRuntime.wrap(function _callee$(_context) {
+      while (1) {
+        switch (_context.prev = _context.next) {
+          case 0:
+            _context.next = 2;
+            return fetch('/users', {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json'
+              },
+              body: JSON.stringify(userData)
+            });
+
+          case 2:
+            response = _context.sent;
+
+            if (!(response.status === 201)) {
+              _context.next = 11;
+              break;
+            }
+
+            _context.next = 6;
+            return response.json();
+
+          case 6:
+            _data = _context.sent;
+            saveToken(_data.token);
+            return _context.abrupt("return", _data);
+
+          case 11:
+            throw new Error('Unable to create an account');
+
+          case 12:
+          case "end":
+            return _context.stop();
+        }
+      }
+    }, _callee);
+  }));
+
+  return function createUser(_x) {
+    return _ref.apply(this, arguments);
+  };
+}();
+var updateProfile =
+/*#__PURE__*/
+function () {
+  var _ref2 = _asyncToGenerator(
+  /*#__PURE__*/
+  regeneratorRuntime.mark(function _callee2(updates) {
+    var response, _data2;
+
+    return regeneratorRuntime.wrap(function _callee2$(_context2) {
+      while (1) {
+        switch (_context2.prev = _context2.next) {
+          case 0:
+            _context2.next = 2;
+            return fetch('/users/profile/update-profile', {
+              method: 'PATCH',
+              headers: {
+                'Content-Type': 'application/json',
+                'Authorization': "Bearer ".concat(localStorage.getItem('authToken'))
+              },
+              body: JSON.stringify(updates)
+            });
+
+          case 2:
+            response = _context2.sent;
+
+            if (!(response.status === 200)) {
+              _context2.next = 10;
+              break;
+            }
+
+            _context2.next = 6;
+            return response.json();
+
+          case 6:
+            _data2 = _context2.sent;
+            return _context2.abrupt("return", _data2);
+
+          case 10:
+            throw new Error('Unable to edit profile');
+
+          case 11:
+          case "end":
+            return _context2.stop();
+        }
+      }
+    }, _callee2);
+  }));
+
+  return function updateProfile(_x2) {
+    return _ref2.apply(this, arguments);
+  };
+}();
+var changePassword =
+/*#__PURE__*/
+function () {
+  var _ref3 = _asyncToGenerator(
+  /*#__PURE__*/
+  regeneratorRuntime.mark(function _callee3(passwords) {
+    var response, _data3;
+
+    return regeneratorRuntime.wrap(function _callee3$(_context3) {
+      while (1) {
+        switch (_context3.prev = _context3.next) {
+          case 0:
+            _context3.next = 2;
+            return fetch('/users/profile/change-password', {
+              method: 'PATCH',
+              headers: {
+                'Content-Type': 'application/json',
+                'Authorization': "Bearer ".concat(localStorage.getItem('authToken'))
+              },
+              body: JSON.stringify(passwords)
+            });
+
+          case 2:
+            response = _context3.sent;
+
+            if (!(response.status === 200)) {
+              _context3.next = 10;
+              break;
+            }
+
+            _context3.next = 6;
+            return response.json();
+
+          case 6:
+            _data3 = _context3.sent;
+            return _context3.abrupt("return", _data3);
+
+          case 10:
+            throw new Error('Unable to change password.  Try again');
+
+          case 11:
+          case "end":
+            return _context3.stop();
+        }
+      }
+    }, _callee3);
+  }));
+
+  return function changePassword(_x3) {
+    return _ref3.apply(this, arguments);
+  };
+}();
+var loginUser =
+/*#__PURE__*/
+function () {
+  var _ref4 = _asyncToGenerator(
+  /*#__PURE__*/
+  regeneratorRuntime.mark(function _callee4(userCredentials) {
+    var response, _data4;
+
+    return regeneratorRuntime.wrap(function _callee4$(_context4) {
+      while (1) {
+        switch (_context4.prev = _context4.next) {
+          case 0:
+            _context4.next = 2;
+            return fetch('/users/login', {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json'
+              },
+              body: JSON.stringify(userCredentials)
+            });
+
+          case 2:
+            response = _context4.sent;
+
+            if (!(response.status === 200)) {
+              _context4.next = 11;
+              break;
+            }
+
+            _context4.next = 6;
+            return response.json();
+
+          case 6:
+            _data4 = _context4.sent;
+            saveToken(_data4.token);
+            return _context4.abrupt("return", _data4);
+
+          case 11:
+            throw new Error('Unable to login');
+
+          case 12:
+          case "end":
+            return _context4.stop();
+        }
+      }
+    }, _callee4);
+  }));
+
+  return function loginUser(_x4) {
+    return _ref4.apply(this, arguments);
+  };
+}();
+var logoutUser =
+/*#__PURE__*/
+function () {
+  var _ref5 = _asyncToGenerator(
+  /*#__PURE__*/
+  regeneratorRuntime.mark(function _callee5() {
+    var response;
+    return regeneratorRuntime.wrap(function _callee5$(_context5) {
+      while (1) {
+        switch (_context5.prev = _context5.next) {
+          case 0:
+            _context5.next = 2;
+            return fetch('/users/logout', {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json',
+                'Authorization': "Bearer ".concat(localStorage.getItem('authToken'))
+              }
+            });
+
+          case 2:
+            response = _context5.sent;
+
+            if (!(response.status === 200)) {
+              _context5.next = 9;
+              break;
+            }
+
+            _context5.next = 6;
+            return response.json();
+
+          case 6:
+            return _context5.abrupt("return", _context5.sent);
+
+          case 9:
+            throw new Error();
+
+          case 10:
+          case "end":
+            return _context5.stop();
+        }
+      }
+    }, _callee5);
+  }));
+
+  return function logoutUser() {
+    return _ref5.apply(this, arguments);
+  };
+}();
+var getUserProfile =
+/*#__PURE__*/
+function () {
+  var _ref6 = _asyncToGenerator(
+  /*#__PURE__*/
+  regeneratorRuntime.mark(function _callee6() {
+    var response, _data5;
+
+    return regeneratorRuntime.wrap(function _callee6$(_context6) {
+      while (1) {
+        switch (_context6.prev = _context6.next) {
+          case 0:
+            _context6.next = 2;
+            return fetch('/users/me/', {
+              method: 'GET',
+              headers: {
+                'Content-Type': 'application/json',
+                'Authorization': "Bearer ".concat(localStorage.getItem('authToken'))
+              }
+            });
+
+          case 2:
+            response = _context6.sent;
+
+            if (!(response.status === 200)) {
+              _context6.next = 10;
+              break;
+            }
+
+            _context6.next = 6;
+            return response.json();
+
+          case 6:
+            _data5 = _context6.sent;
+            return _context6.abrupt("return", _data5);
+
+          case 10:
+            throw new Error('Unable to get user profile');
+
+          case 11:
+          case "end":
+            return _context6.stop();
+        }
+      }
+    }, _callee6);
+  }));
+
+  return function getUserProfile() {
+    return _ref6.apply(this, arguments);
+  };
+}();
+var createTask =
+/*#__PURE__*/
+function () {
+  var _ref7 = _asyncToGenerator(
+  /*#__PURE__*/
+  regeneratorRuntime.mark(function _callee7(taskData) {
+    var response, _data6, _data7;
+
+    return regeneratorRuntime.wrap(function _callee7$(_context7) {
+      while (1) {
+        switch (_context7.prev = _context7.next) {
+          case 0:
+            _context7.next = 2;
+            return fetch('/tasks', {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json',
+                'Authorization': "Bearer ".concat(localStorage.getItem('authToken'))
+              },
+              body: JSON.stringify(taskData)
+            });
+
+          case 2:
+            response = _context7.sent;
+
+            if (!(response.status === 201)) {
+              _context7.next = 10;
+              break;
+            }
+
+            _context7.next = 6;
+            return response.json();
+
+          case 6:
+            _data6 = _context7.sent;
+            return _context7.abrupt("return", _data6);
+
+          case 10:
+            _context7.next = 12;
+            return response.json();
+
+          case 12:
+            _data7 = _context7.sent;
+            throw new Error(_data7.message);
+
+          case 14:
+          case "end":
+            return _context7.stop();
+        }
+      }
+    }, _callee7);
+  }));
+
+  return function createTask(_x5) {
+    return _ref7.apply(this, arguments);
+  };
+}();
+var deleteTask =
+/*#__PURE__*/
+function () {
+  var _ref8 = _asyncToGenerator(
+  /*#__PURE__*/
+  regeneratorRuntime.mark(function _callee8(id) {
+    var response, _data8;
+
+    return regeneratorRuntime.wrap(function _callee8$(_context8) {
+      while (1) {
+        switch (_context8.prev = _context8.next) {
+          case 0:
+            _context8.next = 2;
+            return fetch("/tasks/delete?id=".concat(id), {
+              method: 'DELETE',
+              headers: {
+                'Content-Type': 'application/json',
+                'Authorization': "Bearer ".concat(localStorage.getItem('authToken'))
+              }
+            });
+
+          case 2:
+            response = _context8.sent;
+
+            if (!(response.status === 200)) {
+              _context8.next = 11;
+              break;
+            }
+
+            console.log('testing...');
+            _context8.next = 7;
+            return response.json();
+
+          case 7:
+            _data8 = _context8.sent;
+            console.log(_data8);
+            _context8.next = 12;
+            break;
+
+          case 11:
+            throw new Error('Unable to delete event');
+
+          case 12:
+          case "end":
+            return _context8.stop();
+        }
+      }
+    }, _callee8);
+  }));
+
+  return function deleteTask(_x6) {
+    return _ref8.apply(this, arguments);
+  };
+}();
+var renderSingleTask =
+/*#__PURE__*/
+function () {
+  var _ref9 = _asyncToGenerator(
+  /*#__PURE__*/
+  regeneratorRuntime.mark(function _callee9(id) {
+    var event;
+    return regeneratorRuntime.wrap(function _callee9$(_context9) {
+      while (1) {
+        switch (_context9.prev = _context9.next) {
+          case 0:
+            _context9.next = 2;
+            return getTaskById(id);
+
+          case 2:
+            event = _context9.sent;
+            document.querySelector('#title_label').textContent = event.title;
+            document.querySelector('#date_label').textContent = event.date;
+            document.querySelector('#location_label').textContent = event.location;
+            document.querySelector('#description_label').textContent = event.description;
+
+          case 7:
+          case "end":
+            return _context9.stop();
+        }
+      }
+    }, _callee9);
+  }));
+
+  return function renderSingleTask(_x7) {
+    return _ref9.apply(this, arguments);
+  };
+}();
+var renderTasks =
+/*#__PURE__*/
+function () {
+  var _ref10 = _asyncToGenerator(
+  /*#__PURE__*/
+  regeneratorRuntime.mark(function _callee10(domId) {
+    var tasksDiv, tasks;
+    return regeneratorRuntime.wrap(function _callee10$(_context10) {
+      while (1) {
+        switch (_context10.prev = _context10.next) {
+          case 0:
+            tasksDiv = document.querySelector('#tasks');
+            tasksDiv.innerHTML = '';
+
+            if (!(domId === 'search-tasks')) {
+              _context10.next = 8;
+              break;
+            }
+
+            _context10.next = 5;
+            return searchAllTasks(localStorage.getItem('keywords'));
+
+          case 5:
+            tasks = _context10.sent;
+            _context10.next = 11;
+            break;
+
+          case 8:
+            _context10.next = 10;
+            return getAllTasks(domId);
+
+          case 10:
+            tasks = _context10.sent;
+
+          case 11:
+            tasks.forEach(function (task) {
+              var taskEl = generateTaskDOM(task);
+              tasksDiv.appendChild(taskEl);
+            });
+
+          case 12:
+          case "end":
+            return _context10.stop();
+        }
+      }
+    }, _callee10);
+  }));
+
+  return function renderTasks(_x8) {
+    return _ref10.apply(this, arguments);
+  };
+}();
+
+var generateTaskDOM = function generateTaskDOM(task) {
+  var taskEl = document.createElement('a');
+  taskEl.classList.add('list-item');
+  taskEl.setAttribute('href', "/tasks/details#".concat(task._id));
+  var titleEl = document.createElement('h3');
+  titleEl.textContent = task.title;
+  taskEl.appendChild(titleEl);
+  var dateEl = document.createElement('p');
+  dateEl.textContent = task.date;
+  taskEl.appendChild(dateEl);
+  return taskEl;
+};
+
+var searchAllTasks =
+/*#__PURE__*/
+function () {
+  var _ref11 = _asyncToGenerator(
+  /*#__PURE__*/
+  regeneratorRuntime.mark(function _callee11(searchText) {
+    var response, _data9;
+
+    return regeneratorRuntime.wrap(function _callee11$(_context11) {
+      while (1) {
+        switch (_context11.prev = _context11.next) {
+          case 0:
+            _context11.next = 2;
+            return fetch("/tasks/search-tasks?keywords=".concat(searchText), {
+              method: 'GET',
+              headers: {
+                'Content-Type': 'application/json',
+                'Authorization': "Bearer ".concat(localStorage.getItem('authToken'))
+              }
+            });
+
+          case 2:
+            response = _context11.sent;
+
+            if (!(response.status === 200)) {
+              _context11.next = 10;
+              break;
+            }
+
+            _context11.next = 6;
+            return response.json();
+
+          case 6:
+            _data9 = _context11.sent;
+            return _context11.abrupt("return", _data9);
+
+          case 10:
+            throw new Error(response.message);
+
+          case 11:
+          case "end":
+            return _context11.stop();
+        }
+      }
+    }, _callee11);
+  }));
+
+  return function searchAllTasks(_x9) {
+    return _ref11.apply(this, arguments);
+  };
+}();
+
+var getAllTasks =
+/*#__PURE__*/
+function () {
+  var _ref12 = _asyncToGenerator(
+  /*#__PURE__*/
+  regeneratorRuntime.mark(function _callee12(domId) {
+    var response, _data10;
+
+    return regeneratorRuntime.wrap(function _callee12$(_context12) {
+      while (1) {
+        switch (_context12.prev = _context12.next) {
+          case 0:
+            _context12.next = 2;
+            return fetch("/tasks/".concat(domId), {
+              method: 'GET',
+              headers: {
+                'Content-Type': 'application/json',
+                'Authorization': "Bearer ".concat(localStorage.getItem('authToken'))
+              }
+            });
+
+          case 2:
+            response = _context12.sent;
+
+            if (!(response.status === 200)) {
+              _context12.next = 10;
+              break;
+            }
+
+            _context12.next = 6;
+            return response.json();
+
+          case 6:
+            _data10 = _context12.sent;
+            return _context12.abrupt("return", _data10);
+
+          case 10:
+            throw new Error('Unable to fetch tasks');
+
+          case 11:
+          case "end":
+            return _context12.stop();
+        }
+      }
+    }, _callee12);
+  }));
+
+  return function getAllTasks(_x10) {
+    return _ref12.apply(this, arguments);
+  };
+}();
+
+var getTaskById =
+/*#__PURE__*/
+function () {
+  var _ref13 = _asyncToGenerator(
+  /*#__PURE__*/
+  regeneratorRuntime.mark(function _callee13(id) {
+    var response, _data11;
+
+    return regeneratorRuntime.wrap(function _callee13$(_context13) {
+      while (1) {
+        switch (_context13.prev = _context13.next) {
+          case 0:
+            _context13.next = 2;
+            return fetch("/tasks/data?id=".concat(id), {
+              method: 'GET',
+              headers: {
+                'Content-Type': 'application/json',
+                'Authorization': "Bearer ".concat(localStorage.getItem('authToken'))
+              }
+            });
+
+          case 2:
+            response = _context13.sent;
+
+            if (!(response.status === 200)) {
+              _context13.next = 10;
+              break;
+            }
+
+            _context13.next = 6;
+            return response.json();
+
+          case 6:
+            _data11 = _context13.sent;
+            return _context13.abrupt("return", _data11);
+
+          case 10:
+            throw new Error('Unable to fetch task');
+
+          case 11:
+          case "end":
+            return _context13.stop();
+        }
+      }
+    }, _callee13);
+  }));
+
+  return function getTaskById(_x11) {
+    return _ref13.apply(this, arguments);
+  };
+}();
+var editTask =
+/*#__PURE__*/
+function () {
+  var _ref14 = _asyncToGenerator(
+  /*#__PURE__*/
+  regeneratorRuntime.mark(function _callee14(id, taskData) {
+    var response, _data12;
+
+    return regeneratorRuntime.wrap(function _callee14$(_context14) {
+      while (1) {
+        switch (_context14.prev = _context14.next) {
+          case 0:
+            _context14.next = 2;
+            return fetch("/tasks/details/edit?id=".concat(id), {
+              method: 'PATCH',
+              headers: {
+                'Content-Type': 'application/json',
+                'Authorization': "Bearer ".concat(localStorage.getItem('authToken'))
+              },
+              body: JSON.stringify(taskData)
+            });
+
+          case 2:
+            response = _context14.sent;
+
+            if (!(response.status === 200)) {
+              _context14.next = 10;
+              break;
+            }
+
+            _context14.next = 6;
+            return response.json();
+
+          case 6:
+            _data12 = _context14.sent;
+            return _context14.abrupt("return", _data12);
+
+          case 10:
+            throw new Error(data.message);
+
+          case 11:
+          case "end":
+            return _context14.stop();
+        }
+      }
+    }, _callee14);
+  }));
+
+  return function editTask(_x12, _x13) {
+    return _ref14.apply(this, arguments);
+  };
+}();
+var findCollaborators =
+/*#__PURE__*/
+function () {
+  var _ref15 = _asyncToGenerator(
+  /*#__PURE__*/
+  regeneratorRuntime.mark(function _callee15(searchTerms) {
+    var response, _data13;
+
+    return regeneratorRuntime.wrap(function _callee15$(_context15) {
+      while (1) {
+        switch (_context15.prev = _context15.next) {
+          case 0:
+            _context15.next = 2;
+            return fetch("/projects/collaborators?keywords=".concat(searchTerms), {
+              method: 'GET',
+              headers: {
+                'Content-Type': 'application/json',
+                'Authorization': "Bearer ".concat(localStorage.getItem('authToken'))
+              }
+            });
+
+          case 2:
+            response = _context15.sent;
+
+            if (!(response.status === 200)) {
+              _context15.next = 11;
+              break;
+            }
+
+            _context15.next = 6;
+            return response.json();
+
+          case 6:
+            _data13 = _context15.sent;
+            saveCollaborators(_data13);
+            return _context15.abrupt("return", _data13);
+
+          case 11:
+            throw new Error(data.message);
+
+          case 12:
+          case "end":
+            return _context15.stop();
+        }
+      }
+    }, _callee15);
+  }));
+
+  return function findCollaborators(_x14) {
+    return _ref15.apply(this, arguments);
+  };
+}();
+
+var saveCollaborators = function saveCollaborators(collaborators) {
+  localStorage.setItem('collaborators', JSON.stringify(collaborators));
+};
+
+var loadCollaborators = function loadCollaborators() {
+  var collaborators = JSON.parse(localStorage.getItem('collaborators'));
+  return collaborators ? collaborators : [];
+};
+
+var saveAddedCollaborators = function saveAddedCollaborators(collaborators) {
+  localStorage.setItem('addedCollaborators', JSON.stringify(collaborators));
+};
+
+var loadAddedCollaborators = function loadAddedCollaborators() {
+  var addedCollaborators = JSON.parse(localStorage.getItem('addedCollaborators'));
+  return addedCollaborators ? addedCollaborators : [];
+};
+
+var renderCollaborators =
+/*#__PURE__*/
+function () {
+  var _ref16 = _asyncToGenerator(
+  /*#__PURE__*/
+  regeneratorRuntime.mark(function _callee16(collaborators) {
+    var addCollaboratorsSection, findCollaboratorsResultsDiv;
+    return regeneratorRuntime.wrap(function _callee16$(_context16) {
+      while (1) {
+        switch (_context16.prev = _context16.next) {
+          case 0:
+            // Create search results div
+            addCollaboratorsSection = document.querySelector('#projects_add_div');
+            addCollaboratorsSection.innerHTML = '';
+            findCollaboratorsResultsDiv = document.createElement('div');
+            findCollaboratorsResultsDiv.innerHTML = ''; // Loop thru all collaborators and call render function render their name, and email
+
+            collaborators.forEach(function (collaborator) {
+              var collaboratorEl = generateCollaboratorDOM(collaborator);
+              findCollaboratorsResultsDiv.appendChild(collaboratorEl);
+            });
+            addCollaboratorsSection.appendChild(findCollaboratorsResultsDiv);
+
+          case 6:
+          case "end":
+            return _context16.stop();
+        }
+      }
+    }, _callee16);
+  }));
+
+  return function renderCollaborators(_x15) {
+    return _ref16.apply(this, arguments);
+  };
+}();
+
+var generateCollaboratorDOM = function generateCollaboratorDOM(collaborator) {
+  // create elements: p, spans
+  var collaboratorEl = document.createElement('p');
+  collaboratorEl.className = 'list-item';
+  var nameEl = document.createElement('strong');
+  nameEl.textContent = "".concat(collaborator.name, ", ");
+  var emailEl = document.createElement('span');
+  emailEl.textContent = collaborator.email; // append all elements
+
+  collaboratorEl.appendChild(nameEl);
+  collaboratorEl.appendChild(emailEl); // add event handler for clicking on p element
+
+  collaboratorEl.addEventListener('click', function (e) {
+    // add collaborator to addedCollaborators in local storage
+    var addedCollaborators = loadAddedCollaborators();
+    addedCollaborators.push(collaborator);
+    saveAddedCollaborators(addedCollaborators); // remove collaborator from collaborators in local storage
+
+    var collaborators = loadCollaborators();
+    var collaboratorIndex = collaborators.findIndex(function (item) {
+      return item._id === collaborator._id;
+    });
+    collaborators.splice(collaboratorIndex, 1);
+    saveCollaborators(collaborators); // call added collaborators render function
+
+    renderCollaborators(collaborators);
+    addedCollaborators = JSON.parse(localStorage.getItem('addedCollaborators'));
+    renderAddedCollaborators(addedCollaborators);
+  }); // return collaborator
+
+  return collaboratorEl;
+};
+
+var renderAddedCollaborators =
+/*#__PURE__*/
+function () {
+  var _ref17 = _asyncToGenerator(
+  /*#__PURE__*/
+  regeneratorRuntime.mark(function _callee17(addedCollaborators) {
+    var addCollaboratorsSection, addCollaboratorDiv;
+    return regeneratorRuntime.wrap(function _callee17$(_context17) {
+      while (1) {
+        switch (_context17.prev = _context17.next) {
+          case 0:
+            // Create added collaborators div
+            addCollaboratorsSection = document.querySelector('#projects_add_div');
+            addCollaboratorDiv = document.createElement('div');
+            addCollaboratorDiv.className = 'add-collaborator-div';
+            addCollaboratorDiv.innerHTML = '';
+            addCollaboratorDiv.textContent = 'Added Collaborators'; // Loop thru all collaborators and call render function render their name, and email
+
+            addedCollaborators.forEach(function (addedCollaborator) {
+              var addedCollaboratorEl = generateAddedCollaboratorDOM(addedCollaborator);
+              addCollaboratorDiv.appendChild(addedCollaboratorEl);
+            });
+            addCollaboratorsSection.appendChild(addCollaboratorDiv);
+
+          case 7:
+          case "end":
+            return _context17.stop();
+        }
+      }
+    }, _callee17);
+  }));
+
+  return function renderAddedCollaborators(_x16) {
+    return _ref17.apply(this, arguments);
+  };
+}();
+
+var generateAddedCollaboratorDOM = function generateAddedCollaboratorDOM(addedCollaborator) {
+  // create elements: p (name), remove button
+  var addedCollaboratorEl = document.createElement('p');
+  addedCollaboratorEl.className = 'add-collaborator-list-item';
+  var nameEl = document.createElement('span');
+  nameEl.textContent = addedCollaborator.name;
+  nameEl.className = 'collaborator-name';
+  var removeButton = document.createElement('button');
+  removeButton.textContent = 'Remove';
+  removeButton.className = 'collaborator-remove'; // append all elements
+
+  addedCollaboratorEl.appendChild(removeButton);
+  addedCollaboratorEl.appendChild(nameEl); // add event handler for clicking on remove button
+
+  removeButton.addEventListener('click', function (e) {
+    // add collaborator to collaborators in local storage
+    var collaborators = loadCollaborators();
+    collaborators.push(addedCollaborator);
+    saveCollaborators(collaborators); // remove collaborator from addedCollaborators in local storage
+
+    var addedCollaborators = loadAddedCollaborators();
+    var addedCollaboratorIndex = addedCollaborators.findIndex(function (item) {
+      return item._id === addedCollaborator._id;
+    });
+    addedCollaborators.splice(addedCollaboratorIndex, 1);
+    saveAddedCollaborators(addedCollaborators);
+    collaborators = JSON.parse(localStorage.getItem('collaborators'));
+    renderCollaborators(collaborators);
+    renderAddedCollaborators(addedCollaborators);
+  }); // return addedCollaborator 
+
+  return addedCollaboratorEl;
+};
+
+var createProject =
+/*#__PURE__*/
+function () {
+  var _ref18 = _asyncToGenerator(
+  /*#__PURE__*/
+  regeneratorRuntime.mark(function _callee18(name) {
+    var collaboratorsJSON, collaborators, newProject, response, _data14;
+
+    return regeneratorRuntime.wrap(function _callee18$(_context18) {
+      while (1) {
+        switch (_context18.prev = _context18.next) {
+          case 0:
+            collaboratorsJSON = JSON.parse(localStorage.getItem('addedCollaborators'));
+            collaborators = collaboratorsJSON.map(function (collaborator) {
+              return collaborator._id;
+            });
+            newProject = {
+              name: name,
+              collaborators: collaborators
+            };
+            _context18.next = 5;
+            return fetch('/projects', {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json',
+                'Authorization': "Bearer ".concat(localStorage.getItem('authToken'))
+              },
+              body: JSON.stringify(newProject)
+            });
+
+          case 5:
+            response = _context18.sent;
+
+            if (!(response.status === 201)) {
+              _context18.next = 13;
+              break;
+            }
+
+            _context18.next = 9;
+            return response.json();
+
+          case 9:
+            _data14 = _context18.sent;
+            return _context18.abrupt("return", _data14);
+
+          case 13:
+            throw new Error('unable to create a group');
+
+          case 14:
+          case "end":
+            return _context18.stop();
+        }
+      }
+    }, _callee18);
+  }));
+
+  return function createProject(_x17) {
+    return _ref18.apply(this, arguments);
+  };
+}();
+
+var getProjects =
+/*#__PURE__*/
+function () {
+  var _ref19 = _asyncToGenerator(
+  /*#__PURE__*/
+  regeneratorRuntime.mark(function _callee19() {
+    var response, _data15;
+
+    return regeneratorRuntime.wrap(function _callee19$(_context19) {
+      while (1) {
+        switch (_context19.prev = _context19.next) {
+          case 0:
+            _context19.next = 2;
+            return fetch('/collaborate', {
+              method: 'GET',
+              headers: {
+                'Content-Type': 'application/json',
+                'Authorization': "Bearer ".concat(localStorage.getItem('authToken'))
+              }
+            });
+
+          case 2:
+            response = _context19.sent;
+
+            if (!(response.status === 200)) {
+              _context19.next = 10;
+              break;
+            }
+
+            _context19.next = 6;
+            return response.json();
+
+          case 6:
+            _data15 = _context19.sent;
+            return _context19.abrupt("return", _data15);
+
+          case 10:
+            throw new Error('unable to get groups');
+
+          case 11:
+          case "end":
+            return _context19.stop();
+        }
+      }
+    }, _callee19);
+  }));
+
+  return function getProjects() {
+    return _ref19.apply(this, arguments);
+  };
+}();
+
+var getProjectById =
+/*#__PURE__*/
+function () {
+  var _ref20 = _asyncToGenerator(
+  /*#__PURE__*/
+  regeneratorRuntime.mark(function _callee20(id) {
+    var response, _data16;
+
+    return regeneratorRuntime.wrap(function _callee20$(_context20) {
+      while (1) {
+        switch (_context20.prev = _context20.next) {
+          case 0:
+            _context20.next = 2;
+            return fetch("/projects/data?id=".concat(id), {
+              method: 'GET',
+              headers: {
+                'Content-Type': 'application/json',
+                'Authorization': "Bearer ".concat(localStorage.getItem('authToken'))
+              }
+            });
+
+          case 2:
+            response = _context20.sent;
+
+            if (!(response.status === 200)) {
+              _context20.next = 10;
+              break;
+            }
+
+            _context20.next = 6;
+            return response.json();
+
+          case 6:
+            _data16 = _context20.sent;
+            return _context20.abrupt("return", _data16);
+
+          case 10:
+            throw new Error('Unable to fetch task');
+
+          case 11:
+          case "end":
+            return _context20.stop();
+        }
+      }
+    }, _callee20);
+  }));
+
+  return function getProjectById(_x18) {
+    return _ref20.apply(this, arguments);
+  };
+}();
+
+var renderSingleProject =
+/*#__PURE__*/
+function () {
+  var _ref21 = _asyncToGenerator(
+  /*#__PURE__*/
+  regeneratorRuntime.mark(function _callee21(id) {
+    var project;
+    return regeneratorRuntime.wrap(function _callee21$(_context21) {
+      while (1) {
+        switch (_context21.prev = _context21.next) {
+          case 0:
+            _context21.next = 2;
+            return getProjectById(id);
+
+          case 2:
+            project = _context21.sent;
+            document.querySelector('#project-details_name_label').textContent = project.name;
+            document.querySelector('#project-details_creator_label').textContent = "Creator: ".concat(project.creator);
+            document.querySelector('#project-details_collaborators_label').textContent = "Collaborators: ".concat(project.collaborators);
+            document.querySelector('#project-details_tasks_label').textContent = "Tasks: ".concat(project.tasks);
+
+          case 7:
+          case "end":
+            return _context21.stop();
+        }
+      }
+    }, _callee21);
+  }));
+
+  return function renderSingleProject(_x19) {
+    return _ref21.apply(this, arguments);
+  };
+}();
+var renderProjects =
+/*#__PURE__*/
+function () {
+  var _ref22 = _asyncToGenerator(
+  /*#__PURE__*/
+  regeneratorRuntime.mark(function _callee24() {
+    var _ref23, adminProjects, userProjects, userProjectsDiv, adminProjectsDiv;
+
+    return regeneratorRuntime.wrap(function _callee24$(_context24) {
+      while (1) {
+        switch (_context24.prev = _context24.next) {
+          case 0:
+            _context24.next = 2;
+            return getProjects();
+
+          case 2:
+            _ref23 = _context24.sent;
+            adminProjects = _ref23.adminProjects;
+            userProjects = _ref23.userProjects;
+            userProjectsDiv = document.querySelector('#userProjects');
+            adminProjectsDiv = document.querySelector('#adminProjects');
+            adminProjects.forEach(
+            /*#__PURE__*/
+            function () {
+              var _ref24 = _asyncToGenerator(
+              /*#__PURE__*/
+              regeneratorRuntime.mark(function _callee22(project) {
+                var projectEl;
+                return regeneratorRuntime.wrap(function _callee22$(_context22) {
+                  while (1) {
+                    switch (_context22.prev = _context22.next) {
+                      case 0:
+                        _context22.next = 2;
+                        return generateProjectEl(project);
+
+                      case 2:
+                        projectEl = _context22.sent;
+                        adminProjectsDiv.appendChild(projectEl);
+
+                      case 4:
+                      case "end":
+                        return _context22.stop();
+                    }
+                  }
+                }, _callee22);
+              }));
+
+              return function (_x20) {
+                return _ref24.apply(this, arguments);
+              };
+            }());
+            userProjects.forEach(
+            /*#__PURE__*/
+            function () {
+              var _ref25 = _asyncToGenerator(
+              /*#__PURE__*/
+              regeneratorRuntime.mark(function _callee23(project) {
+                var projectEl;
+                return regeneratorRuntime.wrap(function _callee23$(_context23) {
+                  while (1) {
+                    switch (_context23.prev = _context23.next) {
+                      case 0:
+                        _context23.next = 2;
+                        return generateProjectEl(project);
+
+                      case 2:
+                        projectEl = _context23.sent;
+                        userProjectsDiv.appendChild(projectEl);
+
+                      case 4:
+                      case "end":
+                        return _context23.stop();
+                    }
+                  }
+                }, _callee23);
+              }));
+
+              return function (_x21) {
+                return _ref25.apply(this, arguments);
+              };
+            }());
+
+          case 9:
+          case "end":
+            return _context24.stop();
+        }
+      }
+    }, _callee24);
+  }));
+
+  return function renderProjects() {
+    return _ref22.apply(this, arguments);
+  };
+}();
+
+var generateProjectEl =
+/*#__PURE__*/
+function () {
+  var _ref26 = _asyncToGenerator(
+  /*#__PURE__*/
+  regeneratorRuntime.mark(function _callee25(project, type) {
+    var projectEl, projectNameEl;
+    return regeneratorRuntime.wrap(function _callee25$(_context25) {
+      while (1) {
+        switch (_context25.prev = _context25.next) {
+          case 0:
+            projectEl = document.createElement('a');
+            projectEl.setAttribute('href', "/projects/details#".concat(project._id));
+            projectEl.className = 'projectEl';
+            projectNameEl = document.createElement('p');
+            projectNameEl.className = 'group-title';
+            projectNameEl.textContent = "Name: ".concat(project.name);
+            projectEl.appendChild(projectNameEl);
+            return _context25.abrupt("return", projectEl);
+
+          case 8:
+          case "end":
+            return _context25.stop();
+        }
+      }
+    }, _callee25);
+  }));
+
+  return function generateProjectEl(_x22, _x23) {
+    return _ref26.apply(this, arguments);
+  };
+}(); // const getGroupCollaborator = async (collaborator) => {
+//     const response = await fetch(`/groups/get-group-collaborators?id=${collaborator}`, {
+//         method: 'GET',
+//         headers: {
+//             'Content-Type': 'application/json',
+//             'Authorization': `Bearer ${localStorage.getItem('authToken')}`
+//         }
+//     })
+//     if (response.status === 200) {
+//         const data = await response.json()
+//         return data.name
+//     } else {
+//         throw new Error('unable to get collaborators')
+//     }
+// }
+// const getGroupAdministrator = async (administrator) => {
+//     const response = await fetch(`/groups/get-group-administrator?id=${administrator}`, {
+//         method: 'GET',
+//         headers: {
+//             'Content-Type': 'application/json',
+//             'Authorization': `Bearer ${localStorage.getItem('authToken')}`
+//         }
+//     })
+//     if (response.status === 200) {
+//         const data = await response.json()
+//         return data.name
+//     } else {
+//         throw new Error('unable to get collaborators')
+//     }
+// }
+
+/***/ }),
+
+/***/ "./public/js/project-details.js":
+/*!**************************************!*\
+  !*** ./public/js/project-details.js ***!
+  \**************************************/
+/*! no exports provided */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _functions__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./functions */ "./public/js/functions.js");
+console.log('client side project-details.js is working');
+
+var id = location.hash.substring(1);
+Object(_functions__WEBPACK_IMPORTED_MODULE_0__["renderSingleProject"])(id);
+document.querySelector('#details_edit_btn').addEventListener('click', function (e) {
+  location.replace("/projects/edit#".concat(id));
+});
+document.querySelector('#details_add-tasks_btn').addEventListener('click', function (e) {
+  location.replace("/projects/tasks#".concat(id));
+});
+document.querySelector('#details_back_btn').addEventListener('click', function (e) {
+  location.replace('/projects');
+});
 
 /***/ }),
 
 /***/ 16:
-/*!*********************************************************!*\
-  !*** multi babel-polyfill ./public/js/group-details.js ***!
-  \*********************************************************/
+/*!***********************************************************!*\
+  !*** multi babel-polyfill ./public/js/project-details.js ***!
+  \***********************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
 __webpack_require__(/*! babel-polyfill */"./node_modules/babel-polyfill/lib/index.js");
-module.exports = __webpack_require__(/*! ./public/js/group-details.js */"./public/js/group-details.js");
+module.exports = __webpack_require__(/*! ./public/js/project-details.js */"./public/js/project-details.js");
 
 
 /***/ })
 
 /******/ });
-//# sourceMappingURL=group_details-bundle.js.map
+//# sourceMappingURL=project_details-bundle.js.map

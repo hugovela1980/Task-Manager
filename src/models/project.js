@@ -1,7 +1,7 @@
 const mongoose = require('mongoose')
-const User = require('../models/user')
+const User = require('./user')
 
-const groupSchema = new mongoose.Schema({
+const projectSchema = new mongoose.Schema({
     name: {
         type: String,
         required: [true, 'Name of group is required'],
@@ -21,12 +21,12 @@ const groupSchema = new mongoose.Schema({
     timestamps: true
 })
 
-groupSchema.virtual('events', {
-    ref: 'Event',
+projectSchema.virtual('tasks', {
+    ref: 'Task',
     localField: '_id',
-    foreignField: 'groups'
+    foreignField: 'projects',
 })
 
-const Group = mongoose.model('Group', groupSchema)
+const Project = mongoose.model('Project', projectSchema)
 
-module.exports = Group
+module.exports = Project

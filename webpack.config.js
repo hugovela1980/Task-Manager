@@ -17,8 +17,8 @@ module.exports = {
         update: ['babel-polyfill', './public/js/update.js'],
         reset: ['babel-polyfill', './public/js/reset.js'],
         collaborate: ['babel-polyfill', './public/js/collaborate.js'],
-        groups: ['babel-polyfill', './public/js/groups.js'],
-        group_details: ['babel-polyfill', './public/js/group-details.js']
+        projects: ['babel-polyfill', './public/js/projects.js'],
+        project_details: ['babel-polyfill', './public/js/project-details.js']
 
     },
     output: {

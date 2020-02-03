@@ -3,7 +3,7 @@ require('./db/mongoose')
 const siteRouter = require('./routers/site')
 const userRouter = require('./routers/user')
 const taskRouter = require('./routers/task')
-const groupRouter = require('./routers/group')
+const projectRouter = require('./routers/project')
 const path = require('path')
 const hbs = require('hbs')
 const app = express()
@@ -26,7 +26,7 @@ app.use(express.json())
 app.use(siteRouter)
 app.use(userRouter)
 app.use(taskRouter)
-app.use(groupRouter)
+app.use(projectRouter)
 
 // Setup port
 const port = process.env.PORT || 3000

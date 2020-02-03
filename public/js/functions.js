@@ -250,7 +250,7 @@ export const editTask = async (id, taskData) => {
 }
 
 export const findCollaborators = async (searchTerms) => {
-    const response = await fetch(`/groups/collaborators?keywords=${searchTerms}`, {
+    const response = await fetch(`/projects/collaborators?keywords=${searchTerms}`, {
         method: 'GET',
         headers: {
             'Content-Type': 'application/json',
@@ -287,7 +287,7 @@ const loadAddedCollaborators = () => {
 
 export const renderCollaborators = async (collaborators) => {
     // Create search results div
-    const addCollaboratorsSection = document.querySelector('#groups_add_div')
+    const addCollaboratorsSection = document.querySelector('#projects_add_div')
         addCollaboratorsSection.innerHTML = ''
     const findCollaboratorsResultsDiv = document.createElement('div')
     findCollaboratorsResultsDiv.innerHTML = ''
@@ -310,6 +310,7 @@ const generateCollaboratorDOM = (collaborator) => {
     const emailEl = document.createElement('span')
     emailEl.textContent = collaborator.email
     
+    // append all elements
     collaboratorEl.appendChild(nameEl)
     collaboratorEl.appendChild(emailEl)
 
@@ -332,15 +333,13 @@ const generateCollaboratorDOM = (collaborator) => {
         renderAddedCollaborators(addedCollaborators)
     })
     
-    // append all elements
-    
     // return collaborator
     return collaboratorEl
 }
 
 export const renderAddedCollaborators = async (addedCollaborators) => {
     // Create added collaborators div
-    const addCollaboratorsSection = document.querySelector('#groups_add_div')
+    const addCollaboratorsSection = document.querySelector('#projects_add_div')
     const addCollaboratorDiv = document.createElement('div')
         addCollaboratorDiv.className = 'add-collaborator-div'
         addCollaboratorDiv.innerHTML = ''
@@ -392,18 +391,18 @@ const generateAddedCollaboratorDOM = (addedCollaborator) => {
     return addedCollaboratorEl
 }
 
-export const createGroup = async (name) => {
+export const createProject = async (name) => {
     const collaboratorsJSON = JSON.parse(localStorage.getItem('addedCollaborators'))
     const collaborators = collaboratorsJSON.map(collaborator => collaborator._id)
-    const newGroup = { name, collaborators }
+    const newProject = { name, collaborators }
     
-    const response = await fetch('/groups', {
+    const response = await fetch('/projects', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
             'Authorization': `Bearer ${localStorage.getItem('authToken')}`
         },
-        body: JSON.stringify(newGroup)
+        body: JSON.stringify(newProject)
     })
     
     if (response.status === 201) {
@@ -414,7 +413,7 @@ export const createGroup = async (name) => {
     }
 }
 
-const getGroups = async () => {
+const getProjects = async () => {
     const response = await fetch('/collaborate', {
         method: 'GET',
         headers: {
@@ -431,65 +430,89 @@ const getGroups = async () => {
     }
 }
 
-export const renderGroups = async () => {
-    const { adminGroups, userGroups } = await getGroups()
-    console.log(adminGroups)
-    const userGroupsDiv = document.querySelector('#userGroups')
-    const adminGroupsDiv = document.querySelector('#adminGroups')
-
-    adminGroups.forEach(async (group) => {
-        const groupEl = await generateGroupEl(group)
-        adminGroupsDiv.appendChild(groupEl)
+const getProjectById = async (id) => {
+    const response = await fetch(`/projects/data?id=${id}`, {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${localStorage.getItem('authToken')}`
+        }
     })
 
-    userGroups.forEach(async (group) => {
-        const groupEl = await generateGroupEl(group)
-        userGroupsDiv.appendChild(groupEl)
+    if (response.status === 200) {
+        const data = await response.json()
+        return data
+    } else {
+        throw new Error('Unable to fetch task')
+    }
+}
+
+export const renderSingleProject = async (id) => {
+        const project = await getProjectById(id)
+        document.querySelector('#project-details_name_label').textContent = project.name
+        document.querySelector('#project-details_creator_label').textContent = `Creator: ${project.creator}`
+        document.querySelector('#project-details_collaborators_label').textContent = `Collaborators: ${project.collaborators}`
+        document.querySelector('#project-details_tasks_label').textContent = `Tasks: ${project.tasks}`
+}
+
+export const renderProjects = async () => {
+    const { adminProjects, userProjects } = await getProjects()
+    const userProjectsDiv = document.querySelector('#userProjects')
+    const adminProjectsDiv = document.querySelector('#adminProjects')
+
+    adminProjects.forEach(async (project) => {
+        const projectEl = await generateProjectEl(project)
+        adminProjectsDiv.appendChild(projectEl)
+    })
+
+    userProjects.forEach(async (project) => {
+        const projectEl = await generateProjectEl(project)
+        userProjectsDiv.appendChild(projectEl)
     })
 }
 
-const generateGroupEl = async (group, type) => {
-    const groupEl = document.createElement('a')
-        groupEl.setAttribute('href', `/groups/details#${group._id}`)
-        groupEl.className = 'groupEl'
-    const groupNameEl = document.createElement('p')
-        groupNameEl.className = 'group-title'
-        groupNameEl.textContent = `Name: ${group.name}`
-    groupEl.appendChild(groupNameEl)
+const generateProjectEl = async (project, type) => {
+    const projectEl = document.createElement('a')
+    projectEl.setAttribute('href', `/projects/details#${project._id}`)
+    projectEl.className = 'projectEl'
+    const projectNameEl = document.createElement('p')
+    projectNameEl.className = 'group-title'
+    projectNameEl.textContent = `Name: ${project.name}`
+    projectEl.appendChild(projectNameEl)
     
-    return groupEl
+    return projectEl
 }
 
-const getGroupCollaborator = async (collaborator) => {
-    const response = await fetch(`/groups/get-group-collaborators?id=${collaborator}`, {
-        method: 'GET',
-        headers: {
-            'Content-Type': 'application/json',
-            'Authorization': `Bearer ${localStorage.getItem('authToken')}`
-        }
-    })
+// const getGroupCollaborator = async (collaborator) => {
+//     const response = await fetch(`/groups/get-group-collaborators?id=${collaborator}`, {
+//         method: 'GET',
+//         headers: {
+//             'Content-Type': 'application/json',
+//             'Authorization': `Bearer ${localStorage.getItem('authToken')}`
+//         }
+//     })
 
-    if (response.status === 200) {
-        const data = await response.json()
-        return data.name
-    } else {
-        throw new Error('unable to get collaborators')
-    }
-}
+//     if (response.status === 200) {
+//         const data = await response.json()
+//         return data.name
+//     } else {
+//         throw new Error('unable to get collaborators')
+//     }
+// }
 
-const getGroupAdministrator = async (administrator) => {
-    const response = await fetch(`/groups/get-group-administrator?id=${administrator}`, {
-        method: 'GET',
-        headers: {
-            'Content-Type': 'application/json',
-            'Authorization': `Bearer ${localStorage.getItem('authToken')}`
-        }
-    })
+// const getGroupAdministrator = async (administrator) => {
+//     const response = await fetch(`/groups/get-group-administrator?id=${administrator}`, {
+//         method: 'GET',
+//         headers: {
+//             'Content-Type': 'application/json',
+//             'Authorization': `Bearer ${localStorage.getItem('authToken')}`
+//         }
+//     })
 
-    if (response.status === 200) {
-        const data = await response.json()
-        return data.name
-    } else {
-        throw new Error('unable to get collaborators')
-    }
-}
+//     if (response.status === 200) {
+//         const data = await response.json()
+//         return data.name
+//     } else {
+//         throw new Error('unable to get collaborators')
+//     }
+// }

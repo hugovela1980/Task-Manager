@@ -11169,7 +11169,7 @@ module.exports = g;
 /*!********************************!*\
   !*** ./public/js/functions.js ***!
   \********************************/
-/*! exports provided: createUser, updateProfile, changePassword, loginUser, logoutUser, getUserProfile, createTask, deleteTask, renderSingleTask, renderTasks, searchAllTasks, getTaskById, editTask, findCollaborators, loadCollaborators, renderCollaborators, renderAddedCollaborators, createGroup, renderGroups */
+/*! exports provided: createUser, updateProfile, changePassword, loginUser, logoutUser, getUserProfile, createTask, deleteTask, renderSingleTask, renderTasks, searchAllTasks, getTaskById, editTask, findCollaborators, loadCollaborators, renderCollaborators, renderAddedCollaborators, createProject, renderSingleProject, renderProjects */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -11191,8 +11191,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "loadCollaborators", function() { return loadCollaborators; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "renderCollaborators", function() { return renderCollaborators; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "renderAddedCollaborators", function() { return renderAddedCollaborators; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "createGroup", function() { return createGroup; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "renderGroups", function() { return renderGroups; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "createProject", function() { return createProject; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "renderSingleProject", function() { return renderSingleProject; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "renderProjects", function() { return renderProjects; });
 function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
 
 function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
@@ -11939,7 +11940,7 @@ function () {
         switch (_context15.prev = _context15.next) {
           case 0:
             _context15.next = 2;
-            return fetch("/groups/collaborators?keywords=".concat(searchTerms), {
+            return fetch("/projects/collaborators?keywords=".concat(searchTerms), {
               method: 'GET',
               headers: {
                 'Content-Type': 'application/json',
@@ -12009,7 +12010,7 @@ function () {
         switch (_context16.prev = _context16.next) {
           case 0:
             // Create search results div
-            addCollaboratorsSection = document.querySelector('#groups_add_div');
+            addCollaboratorsSection = document.querySelector('#projects_add_div');
             addCollaboratorsSection.innerHTML = '';
             findCollaboratorsResultsDiv = document.createElement('div');
             findCollaboratorsResultsDiv.innerHTML = ''; // Loop thru all collaborators and call render function render their name, and email
@@ -12040,7 +12041,8 @@ var generateCollaboratorDOM = function generateCollaboratorDOM(collaborator) {
   var nameEl = document.createElement('strong');
   nameEl.textContent = "".concat(collaborator.name, ", ");
   var emailEl = document.createElement('span');
-  emailEl.textContent = collaborator.email;
+  emailEl.textContent = collaborator.email; // append all elements
+
   collaboratorEl.appendChild(nameEl);
   collaboratorEl.appendChild(emailEl); // add event handler for clicking on p element
 
@@ -12060,8 +12062,7 @@ var generateCollaboratorDOM = function generateCollaboratorDOM(collaborator) {
     renderCollaborators(collaborators);
     addedCollaborators = JSON.parse(localStorage.getItem('addedCollaborators'));
     renderAddedCollaborators(addedCollaborators);
-  }); // append all elements
-  // return collaborator
+  }); // return collaborator
 
   return collaboratorEl;
 };
@@ -12078,7 +12079,7 @@ function () {
         switch (_context17.prev = _context17.next) {
           case 0:
             // Create added collaborators div
-            addCollaboratorsSection = document.querySelector('#groups_add_div');
+            addCollaboratorsSection = document.querySelector('#projects_add_div');
             addCollaboratorDiv = document.createElement('div');
             addCollaboratorDiv.className = 'add-collaborator-div';
             addCollaboratorDiv.innerHTML = '';
@@ -12137,13 +12138,13 @@ var generateAddedCollaboratorDOM = function generateAddedCollaboratorDOM(addedCo
   return addedCollaboratorEl;
 };
 
-var createGroup =
+var createProject =
 /*#__PURE__*/
 function () {
   var _ref18 = _asyncToGenerator(
   /*#__PURE__*/
   regeneratorRuntime.mark(function _callee18(name) {
-    var collaboratorsJSON, collaborators, newGroup, response, _data14;
+    var collaboratorsJSON, collaborators, newProject, response, _data14;
 
     return regeneratorRuntime.wrap(function _callee18$(_context18) {
       while (1) {
@@ -12153,18 +12154,18 @@ function () {
             collaborators = collaboratorsJSON.map(function (collaborator) {
               return collaborator._id;
             });
-            newGroup = {
+            newProject = {
               name: name,
               collaborators: collaborators
             };
             _context18.next = 5;
-            return fetch('/groups', {
+            return fetch('/projects', {
               method: 'POST',
               headers: {
                 'Content-Type': 'application/json',
                 'Authorization': "Bearer ".concat(localStorage.getItem('authToken'))
               },
-              body: JSON.stringify(newGroup)
+              body: JSON.stringify(newProject)
             });
 
           case 5:
@@ -12193,12 +12194,12 @@ function () {
     }, _callee18);
   }));
 
-  return function createGroup(_x17) {
+  return function createProject(_x17) {
     return _ref18.apply(this, arguments);
   };
 }();
 
-var getGroups =
+var getProjects =
 /*#__PURE__*/
 function () {
   var _ref19 = _asyncToGenerator(
@@ -12245,154 +12246,25 @@ function () {
     }, _callee19);
   }));
 
-  return function getGroups() {
+  return function getProjects() {
     return _ref19.apply(this, arguments);
   };
 }();
 
-var renderGroups =
+var getProjectById =
 /*#__PURE__*/
 function () {
   var _ref20 = _asyncToGenerator(
   /*#__PURE__*/
-  regeneratorRuntime.mark(function _callee22() {
-    var _ref21, adminGroups, userGroups, userGroupsDiv, adminGroupsDiv;
-
-    return regeneratorRuntime.wrap(function _callee22$(_context22) {
-      while (1) {
-        switch (_context22.prev = _context22.next) {
-          case 0:
-            _context22.next = 2;
-            return getGroups();
-
-          case 2:
-            _ref21 = _context22.sent;
-            adminGroups = _ref21.adminGroups;
-            userGroups = _ref21.userGroups;
-            console.log(adminGroups);
-            userGroupsDiv = document.querySelector('#userGroups');
-            adminGroupsDiv = document.querySelector('#adminGroups');
-            adminGroups.forEach(
-            /*#__PURE__*/
-            function () {
-              var _ref22 = _asyncToGenerator(
-              /*#__PURE__*/
-              regeneratorRuntime.mark(function _callee20(group) {
-                var groupEl;
-                return regeneratorRuntime.wrap(function _callee20$(_context20) {
-                  while (1) {
-                    switch (_context20.prev = _context20.next) {
-                      case 0:
-                        _context20.next = 2;
-                        return generateGroupEl(group);
-
-                      case 2:
-                        groupEl = _context20.sent;
-                        adminGroupsDiv.appendChild(groupEl);
-
-                      case 4:
-                      case "end":
-                        return _context20.stop();
-                    }
-                  }
-                }, _callee20);
-              }));
-
-              return function (_x18) {
-                return _ref22.apply(this, arguments);
-              };
-            }());
-            userGroups.forEach(
-            /*#__PURE__*/
-            function () {
-              var _ref23 = _asyncToGenerator(
-              /*#__PURE__*/
-              regeneratorRuntime.mark(function _callee21(group) {
-                var groupEl;
-                return regeneratorRuntime.wrap(function _callee21$(_context21) {
-                  while (1) {
-                    switch (_context21.prev = _context21.next) {
-                      case 0:
-                        _context21.next = 2;
-                        return generateGroupEl(group);
-
-                      case 2:
-                        groupEl = _context21.sent;
-                        userGroupsDiv.appendChild(groupEl);
-
-                      case 4:
-                      case "end":
-                        return _context21.stop();
-                    }
-                  }
-                }, _callee21);
-              }));
-
-              return function (_x19) {
-                return _ref23.apply(this, arguments);
-              };
-            }());
-
-          case 10:
-          case "end":
-            return _context22.stop();
-        }
-      }
-    }, _callee22);
-  }));
-
-  return function renderGroups() {
-    return _ref20.apply(this, arguments);
-  };
-}();
-
-var generateGroupEl =
-/*#__PURE__*/
-function () {
-  var _ref24 = _asyncToGenerator(
-  /*#__PURE__*/
-  regeneratorRuntime.mark(function _callee23(group, type) {
-    var groupEl, groupNameEl;
-    return regeneratorRuntime.wrap(function _callee23$(_context23) {
-      while (1) {
-        switch (_context23.prev = _context23.next) {
-          case 0:
-            groupEl = document.createElement('a');
-            groupEl.setAttribute('href', "/groups/details#".concat(group._id));
-            groupEl.className = 'groupEl';
-            groupNameEl = document.createElement('p');
-            groupNameEl.className = 'group-title';
-            groupNameEl.textContent = "Name: ".concat(group.name);
-            groupEl.appendChild(groupNameEl);
-            return _context23.abrupt("return", groupEl);
-
-          case 8:
-          case "end":
-            return _context23.stop();
-        }
-      }
-    }, _callee23);
-  }));
-
-  return function generateGroupEl(_x20, _x21) {
-    return _ref24.apply(this, arguments);
-  };
-}();
-
-var getGroupCollaborator =
-/*#__PURE__*/
-function () {
-  var _ref25 = _asyncToGenerator(
-  /*#__PURE__*/
-  regeneratorRuntime.mark(function _callee24(collaborator) {
+  regeneratorRuntime.mark(function _callee20(id) {
     var response, _data16;
 
-    return regeneratorRuntime.wrap(function _callee24$(_context24) {
+    return regeneratorRuntime.wrap(function _callee20$(_context20) {
       while (1) {
-        switch (_context24.prev = _context24.next) {
+        switch (_context20.prev = _context20.next) {
           case 0:
-            _context24.next = 2;
-            return fetch("/groups/get-group-collaborators?id=".concat(collaborator), {
+            _context20.next = 2;
+            return fetch("/projects/data?id=".concat(id), {
               method: 'GET',
               headers: {
                 'Content-Type': 'application/json',
@@ -12401,24 +12273,152 @@ function () {
             });
 
           case 2:
-            response = _context24.sent;
+            response = _context20.sent;
 
             if (!(response.status === 200)) {
-              _context24.next = 10;
+              _context20.next = 10;
               break;
             }
 
-            _context24.next = 6;
+            _context20.next = 6;
             return response.json();
 
           case 6:
-            _data16 = _context24.sent;
-            return _context24.abrupt("return", _data16.name);
+            _data16 = _context20.sent;
+            return _context20.abrupt("return", _data16);
 
           case 10:
-            throw new Error('unable to get collaborators');
+            throw new Error('Unable to fetch task');
 
           case 11:
+          case "end":
+            return _context20.stop();
+        }
+      }
+    }, _callee20);
+  }));
+
+  return function getProjectById(_x18) {
+    return _ref20.apply(this, arguments);
+  };
+}();
+
+var renderSingleProject =
+/*#__PURE__*/
+function () {
+  var _ref21 = _asyncToGenerator(
+  /*#__PURE__*/
+  regeneratorRuntime.mark(function _callee21(id) {
+    var project;
+    return regeneratorRuntime.wrap(function _callee21$(_context21) {
+      while (1) {
+        switch (_context21.prev = _context21.next) {
+          case 0:
+            _context21.next = 2;
+            return getProjectById(id);
+
+          case 2:
+            project = _context21.sent;
+            document.querySelector('#project-details_name_label').textContent = project.name;
+            document.querySelector('#project-details_creator_label').textContent = "Creator: ".concat(project.creator);
+            document.querySelector('#project-details_collaborators_label').textContent = "Collaborators: ".concat(project.collaborators);
+            document.querySelector('#project-details_tasks_label').textContent = "Tasks: ".concat(project.tasks);
+
+          case 7:
+          case "end":
+            return _context21.stop();
+        }
+      }
+    }, _callee21);
+  }));
+
+  return function renderSingleProject(_x19) {
+    return _ref21.apply(this, arguments);
+  };
+}();
+var renderProjects =
+/*#__PURE__*/
+function () {
+  var _ref22 = _asyncToGenerator(
+  /*#__PURE__*/
+  regeneratorRuntime.mark(function _callee24() {
+    var _ref23, adminProjects, userProjects, userProjectsDiv, adminProjectsDiv;
+
+    return regeneratorRuntime.wrap(function _callee24$(_context24) {
+      while (1) {
+        switch (_context24.prev = _context24.next) {
+          case 0:
+            _context24.next = 2;
+            return getProjects();
+
+          case 2:
+            _ref23 = _context24.sent;
+            adminProjects = _ref23.adminProjects;
+            userProjects = _ref23.userProjects;
+            userProjectsDiv = document.querySelector('#userProjects');
+            adminProjectsDiv = document.querySelector('#adminProjects');
+            adminProjects.forEach(
+            /*#__PURE__*/
+            function () {
+              var _ref24 = _asyncToGenerator(
+              /*#__PURE__*/
+              regeneratorRuntime.mark(function _callee22(project) {
+                var projectEl;
+                return regeneratorRuntime.wrap(function _callee22$(_context22) {
+                  while (1) {
+                    switch (_context22.prev = _context22.next) {
+                      case 0:
+                        _context22.next = 2;
+                        return generateProjectEl(project);
+
+                      case 2:
+                        projectEl = _context22.sent;
+                        adminProjectsDiv.appendChild(projectEl);
+
+                      case 4:
+                      case "end":
+                        return _context22.stop();
+                    }
+                  }
+                }, _callee22);
+              }));
+
+              return function (_x20) {
+                return _ref24.apply(this, arguments);
+              };
+            }());
+            userProjects.forEach(
+            /*#__PURE__*/
+            function () {
+              var _ref25 = _asyncToGenerator(
+              /*#__PURE__*/
+              regeneratorRuntime.mark(function _callee23(project) {
+                var projectEl;
+                return regeneratorRuntime.wrap(function _callee23$(_context23) {
+                  while (1) {
+                    switch (_context23.prev = _context23.next) {
+                      case 0:
+                        _context23.next = 2;
+                        return generateProjectEl(project);
+
+                      case 2:
+                        projectEl = _context23.sent;
+                        userProjectsDiv.appendChild(projectEl);
+
+                      case 4:
+                      case "end":
+                        return _context23.stop();
+                    }
+                  }
+                }, _callee23);
+              }));
+
+              return function (_x21) {
+                return _ref25.apply(this, arguments);
+              };
+            }());
+
+          case 9:
           case "end":
             return _context24.stop();
         }
@@ -12426,51 +12426,32 @@ function () {
     }, _callee24);
   }));
 
-  return function getGroupCollaborator(_x22) {
-    return _ref25.apply(this, arguments);
+  return function renderProjects() {
+    return _ref22.apply(this, arguments);
   };
 }();
 
-var getGroupAdministrator =
+var generateProjectEl =
 /*#__PURE__*/
 function () {
   var _ref26 = _asyncToGenerator(
   /*#__PURE__*/
-  regeneratorRuntime.mark(function _callee25(administrator) {
-    var response, _data17;
-
+  regeneratorRuntime.mark(function _callee25(project, type) {
+    var projectEl, projectNameEl;
     return regeneratorRuntime.wrap(function _callee25$(_context25) {
       while (1) {
         switch (_context25.prev = _context25.next) {
           case 0:
-            _context25.next = 2;
-            return fetch("/groups/get-group-administrator?id=".concat(administrator), {
-              method: 'GET',
-              headers: {
-                'Content-Type': 'application/json',
-                'Authorization': "Bearer ".concat(localStorage.getItem('authToken'))
-              }
-            });
+            projectEl = document.createElement('a');
+            projectEl.setAttribute('href', "/projects/details#".concat(project._id));
+            projectEl.className = 'projectEl';
+            projectNameEl = document.createElement('p');
+            projectNameEl.className = 'group-title';
+            projectNameEl.textContent = "Name: ".concat(project.name);
+            projectEl.appendChild(projectNameEl);
+            return _context25.abrupt("return", projectEl);
 
-          case 2:
-            response = _context25.sent;
-
-            if (!(response.status === 200)) {
-              _context25.next = 10;
-              break;
-            }
-
-            _context25.next = 6;
-            return response.json();
-
-          case 6:
-            _data17 = _context25.sent;
-            return _context25.abrupt("return", _data17.name);
-
-          case 10:
-            throw new Error('unable to get collaborators');
-
-          case 11:
+          case 8:
           case "end":
             return _context25.stop();
         }
@@ -12478,17 +12459,46 @@ function () {
     }, _callee25);
   }));
 
-  return function getGroupAdministrator(_x23) {
+  return function generateProjectEl(_x22, _x23) {
     return _ref26.apply(this, arguments);
   };
-}();
+}(); // const getGroupCollaborator = async (collaborator) => {
+//     const response = await fetch(`/groups/get-group-collaborators?id=${collaborator}`, {
+//         method: 'GET',
+//         headers: {
+//             'Content-Type': 'application/json',
+//             'Authorization': `Bearer ${localStorage.getItem('authToken')}`
+//         }
+//     })
+//     if (response.status === 200) {
+//         const data = await response.json()
+//         return data.name
+//     } else {
+//         throw new Error('unable to get collaborators')
+//     }
+// }
+// const getGroupAdministrator = async (administrator) => {
+//     const response = await fetch(`/groups/get-group-administrator?id=${administrator}`, {
+//         method: 'GET',
+//         headers: {
+//             'Content-Type': 'application/json',
+//             'Authorization': `Bearer ${localStorage.getItem('authToken')}`
+//         }
+//     })
+//     if (response.status === 200) {
+//         const data = await response.json()
+//         return data.name
+//     } else {
+//         throw new Error('unable to get collaborators')
+//     }
+// }
 
 /***/ }),
 
-/***/ "./public/js/groups.js":
-/*!*****************************!*\
-  !*** ./public/js/groups.js ***!
-  \*****************************/
+/***/ "./public/js/projects.js":
+/*!*******************************!*\
+  !*** ./public/js/projects.js ***!
+  \*******************************/
 /*! no exports provided */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -12499,11 +12509,11 @@ function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try
 
 function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
 
-console.log('client side group.js is working');
+console.log('client side project.js is working');
 
 localStorage.removeItem('collaborators');
 localStorage.removeItem('addedCollaborators');
-document.querySelector('#groups_add_div').textContent = 'Search for users to add to your group';
+document.querySelector('#projects_add_div').textContent = 'Search for users to add to your project';
 document.querySelector('#find-collaborators-input').addEventListener('input',
 /*#__PURE__*/
 function () {
@@ -12529,7 +12539,7 @@ function () {
           case 7:
             _context.prev = 7;
             _context.t0 = _context["catch"](0);
-            document.querySelector('#groups_add_div').textContent = 'No users found';
+            document.querySelector('#projects_add_div').textContent = 'No users found';
             console.log(_context.t0);
 
           case 11:
@@ -12544,13 +12554,13 @@ function () {
     return _ref.apply(this, arguments);
   };
 }());
-document.querySelector('#groups_find_form').addEventListener('submit',
+document.querySelector('#projects_find_form').addEventListener('submit',
 /*#__PURE__*/
 function () {
   var _ref2 = _asyncToGenerator(
   /*#__PURE__*/
   regeneratorRuntime.mark(function _callee2(e) {
-    var group;
+    var project;
     return regeneratorRuntime.wrap(function _callee2$(_context2) {
       while (1) {
         switch (_context2.prev = _context2.next) {
@@ -12558,11 +12568,11 @@ function () {
             e.preventDefault();
             _context2.prev = 1;
             _context2.next = 4;
-            return Object(_functions__WEBPACK_IMPORTED_MODULE_0__["createGroup"])(e.target.elements.name.value);
+            return Object(_functions__WEBPACK_IMPORTED_MODULE_0__["createProject"])(e.target.elements.name.value);
 
           case 4:
-            group = _context2.sent;
-            console.log(group);
+            project = _context2.sent;
+            console.log(project);
             _context2.next = 11;
             break;
 
@@ -12576,7 +12586,7 @@ function () {
             localStorage.removeItem('collaborators');
             localStorage.removeItem('addedCollaborators'); // go to back Collaborate page
 
-            location.replace('/groups');
+            location.replace('/projects');
 
           case 14:
           case "end":
@@ -12594,17 +12604,17 @@ function () {
 /***/ }),
 
 /***/ 15:
-/*!**************************************************!*\
-  !*** multi babel-polyfill ./public/js/groups.js ***!
-  \**************************************************/
+/*!****************************************************!*\
+  !*** multi babel-polyfill ./public/js/projects.js ***!
+  \****************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
 __webpack_require__(/*! babel-polyfill */"./node_modules/babel-polyfill/lib/index.js");
-module.exports = __webpack_require__(/*! ./public/js/groups.js */"./public/js/groups.js");
+module.exports = __webpack_require__(/*! ./public/js/projects.js */"./public/js/projects.js");
 
 
 /***/ })
 
 /******/ });
-//# sourceMappingURL=groups-bundle.js.map
+//# sourceMappingURL=projects-bundle.js.map

@@ -1,13 +1,13 @@
 console.log('client side collaborate.js is working')
-import { renderGroups } from './functions'
+import { renderProjects } from './functions'
 
-renderGroups().then((data) => {
+renderProjects().then((data) => {
 //   console.log(data)
 }).catch((e) => {
     console.log(e)
 })
 
 
-document.querySelector('#collaborate_create-group_btn').addEventListener('click', (e) => {
-    location.replace('/groups/create')
+document.querySelector('#collaborate_create-project_btn').addEventListener('click', (e) => {
+    location.replace('/projects/create')
 })

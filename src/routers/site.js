@@ -87,20 +87,20 @@ router.get('/tasks/delete', (req, res) => {
     })
 })
 
-router.get('/groups', (req, res) => {
+router.get('/projects', (req, res) => {
     res.render('collaborate', {
         developer: 'Hugo Vela'
     })
 })
 
-router.get('/groups/create', (req, res) => {
-    res.render('groups', {
+router.get('/projects/create', (req, res) => {
+    res.render('projects', {
         developer: 'Hugo Vela'
     })
 })
 
-router.get('/groups/details', (req, res) => {
-    res.render('group-details', {
+router.get('/projects/details', (req, res) => {
+    res.render('project-details', {
         developer: 'Hugo Vela'
     })
 })

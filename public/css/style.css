@@ -66,7 +66,7 @@ button {
     margin-top: 40px;
 }
 
-.myGroups {
+.myProjects {
     display: inline-block;
     border: solid;
     width: 300px;
@@ -75,7 +75,7 @@ button {
     text-align: center;
 }
 
-.groupEl {
+.projectEl {
     display: inline-block;
     text-decoration: none;
     color: black;
@@ -89,6 +89,18 @@ button {
     height: 60px;
 }
 
-.group-title {
+.project-title {
     font-size: 12px;
+}
+
+.main-project-headings {
+    float: left;
+    margin: 20px;
+    padding: 5px;
+    line-height: 30px;
+    text-align: right;
+}
+
+.main-project-content {
+    float: right;
 }

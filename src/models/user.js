@@ -60,14 +60,14 @@ userSchema.virtual('tasks', {
     foreignField: 'owner'
 })
 
-userSchema.virtual('createdGroups', {
-    ref: 'Group',
+userSchema.virtual('createdProjects', {
+    ref: 'Project',
     localField: '_id',
     foreignField: 'creator'
 })
 
-userSchema.virtual('groups', {
-    ref: 'Group',
+userSchema.virtual('projects', {
+    ref: 'Project',
     localField: '_id',
     foreignField: 'collaborators'
 })
