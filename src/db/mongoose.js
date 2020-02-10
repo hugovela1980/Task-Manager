@@ -1,6 +1,8 @@
 const mongoose = require('mongoose')
 
-mongoose.connect('mongodb://127.0.0.1:27017/tasks-website-api', {
+const uri = 'mongodb://hugovela1980@gmail.com:small421Feathers/tasks-website-api'
+
+mongoose.connect(uri, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
     useCreateIndex: true, 
